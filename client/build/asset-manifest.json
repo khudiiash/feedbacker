@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6832004a.chunk.css",
+    "main.js": "/static/js/main.3d74e571.chunk.js",
+    "main.js.map": "/static/js/main.3d74e571.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.bf997057.js",
+    "runtime-main.js.map": "/static/js/runtime-main.bf997057.js.map",
+    "static/js/2.b7f5676f.chunk.js": "/static/js/2.b7f5676f.chunk.js",
+    "static/js/2.b7f5676f.chunk.js.map": "/static/js/2.b7f5676f.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.2235c2437db3ba4eae83c61e26fb283e.js": "/precache-manifest.2235c2437db3ba4eae83c61e26fb283e.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.6832004a.chunk.css.map": "/static/css/main.6832004a.chunk.css.map",
+    "static/js/2.b7f5676f.chunk.js.LICENSE": "/static/js/2.b7f5676f.chunk.js.LICENSE",
+    "static/media/alex.91137c5e.jpg": "/static/media/alex.91137c5e.jpg",
+    "static/media/dima.1a0d17ea.jpg": "/static/media/dima.1a0d17ea.jpg",
+    "static/media/masha.8dbc4841.jpg": "/static/media/masha.8dbc4841.jpg",
+    "static/media/oksana.908c0f5a.jpg": "/static/media/oksana.908c0f5a.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bf997057.js",
+    "static/js/2.b7f5676f.chunk.js",
+    "static/css/main.6832004a.chunk.css",
+    "static/js/main.3d74e571.chunk.js"
+  ]
+}
