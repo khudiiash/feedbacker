@@ -205,7 +205,7 @@ class Hint extends Component {
     e.preventDefault()
     let template = {
       user: this.state.user,
-      keyword: this.state.keyword,
+      keyword: this.state.keyword.trim(),
       area: this.state.area,
       recommendations: this.state.recommendations,
       points: this.state.points
@@ -219,13 +219,13 @@ class Hint extends Component {
     e.preventDefault()
     let template = {
       user: this.state.user,
-      keyword: this.state.editObject.keyword,
+      keyword: this.state.editObject.keyword.trim(),
       area: this.state.editObject.area,
       recommendations: this.state.editObject.recommendations,
       points: this.state.editObject.points
     }      
     console.log(template)
-  axios.post(`/templates/update/`+this.state.editObject._id,template)
+    axios.post(`/templates/update/`+this.state.editObject._id,template)
     .then(res => this.componentDidMount())
   this.showEditForm()
   this.editIssues()
