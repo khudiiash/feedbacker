@@ -8,7 +8,6 @@ class User extends Component {
     return (
       <label
         className="btn btn-secondary active radio evaluator"
-        onClick={this.props.onClick}
       >
         <div className="evaluator-info">
           <div className="evaluator-ava" style={{ backgroundImage: ava }}></div>
@@ -20,7 +19,7 @@ class User extends Component {
             name="options"
             id={id}
             autoComplete="off"
-            onChange={this.props.onClick}
+            onChange={()=>true}
             checked
           ></input>
         ) : (

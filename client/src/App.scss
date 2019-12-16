@@ -269,7 +269,22 @@
         }
     }
 }
-
+.unauthorized {
+    background: rgba(3, 204, 87, 0.849);
+    padding: 30px;
+    border-radius: 15px;
+    width: 30vw;
+    height: 30vh;
+    margin: 30vh auto;
+    text-align: center;
+    .links {
+        margin: 50px;
+        .link {
+            margin: 5px;
+            color: rgb(255, 255, 255)
+        }
+    }
+}
 
 
 

@@ -53,10 +53,10 @@ class Hint extends Component {
   componentDidMount(){
     this._isMounted = true
     this.setState({user:this.props.user})
-
     axios.get(`${env === 'development' ? 'http://localhost:5000':''}/templates`)
       .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user)})})
     this.setState({area:this.props.area})
+    this.props.updateApp(this.props.user)
   }
   componentWillUnmount(){
     this._isMounted = false
@@ -145,6 +145,7 @@ class Hint extends Component {
   axios.post(`${env === 'development' ? 'http://localhost:5000':''}/templates/add`,template)
     .then(res => this.componentDidMount())
   this.showAddForm()
+  
   }
   editIssue(e) {
     e.preventDefault()
@@ -230,7 +231,8 @@ class Hint extends Component {
     }
         // send up to App component
     
-    this.props.appendIssue(area, oneRecommendation); 
+    this.props.appendIssue(area, oneRecommendation);
+    this.componentDidMount()
 
   }
 

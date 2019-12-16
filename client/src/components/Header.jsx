@@ -11,38 +11,38 @@ class Header extends Component {
         this.state = {
             user: ''
         }
-        this.setDima = this.setDima.bind(this)
-        this.setAlex = this.setAlex.bind(this)
-        this.setOksana = this.setOksana.bind(this)
-        this.setMaria = this.setMaria.bind(this)
+
     }
     componentDidMount(){
         this.setState({user:this.props.user})
     }
-    setDima(){
-        this.props.setUser('dima')
-    }
-    setAlex(){
-        this.props.setUser('alex')
-    }
-    setOksana(){
-        this.props.setUser('oksana')
-    }
-    setMaria(){
-        this.props.setUser('masha')
-    }
+
     render() {
+        let name = this.state.user
+        name = name.charAt(0).toUpperCase()+name.substring(1)
+        let ava;
+        switch (this.state.user) {
+            case "dima":
+                ava = dimaAva
+                break
+            case "alex":
+                ava = alexAva
+                break
+            case "oksana":
+                ava = oksanaAva
+                break
+            case "masha":
+                ava = mashaAva
+                break
+        }
         return (
             <div className='Header'>
                  <div
             className="btn-group btn-group-toggle type evaluators"
             data-toggle="buttons"
           >
-                    <User name="Dima" ava={dimaAva} onClick={this.setDima} checked={true} />
-                    <User name="Alex" ava={alexAva} onClick={this.setAlex} checked={false} />
-                    <User name="Oksana" ava={oksanaAva} onClick={this.setOksana} checked={false} />
-                    <User name="Masha" ava={mashaAva} onClick={this.setMasha} checked={false} />
-                    </div>
+                    <User name={name} ava={ava} checked={true} />
+                </div>
             </div>
         );
     }
