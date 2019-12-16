@@ -9,7 +9,7 @@ const Paragraph = (props) => {
         <div className='Feedback__section'>
         <h4 className='Feedback__heading'>{issuesArray.length ? area : ''}</h4>
         <p className='Feedback__paragraph'>{issuesArray
-          ? issuesArray.join(' ')
+          ? issuesArray.join('. ')
           : ""}
         </p>
         
@@ -42,16 +42,24 @@ class Feedback extends Component {
       level: ''
     }
   }
+  componentDidMount(){
+
+  }
   render() {
     let content = this.props.content,
       structure = this.props.structure,
       grammar = this.props.grammar,
       format = this.props.format,
-      style = this.props.style;
+      style = this.props.style,
+      user = this.props.user
 
     return (
       <div className="Feedback">
-        <h1 className="Feedback__heading main">Feedback</h1>
+        <div className="Feedback__heading">
+            <h1 className="Feedback__heading main">Feedback</h1>
+            <button className='Feedback__heading__clearFeedback' onClick={this.props.clearFeedback}>clear</button>
+        </div>
+        
         <div className="Feedback__body">
             <Paragraph area='content' issuesArray={content}/>
             <List area='structure' issuesArray={structure}/>

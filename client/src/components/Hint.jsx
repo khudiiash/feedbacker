@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import issues from "../issues";
 import axios from 'axios'
 import AddForm from "./AddForm.jsx";
 import EditForm from "./EditForm.jsx";
+let env = "development"
 
 class Hint extends Component {
   constructor() {
@@ -21,8 +21,6 @@ class Hint extends Component {
     this.editIssues = this.editIssues.bind(this)
     this.chooseIssueToEdit = this.chooseIssueToEdit.bind(this)
     this.editIssue = this.editIssue.bind(this)
-
-    this.countPoints = this.countPoints.bind(this)
 
     this.state = {
       user: '',
@@ -54,10 +52,9 @@ class Hint extends Component {
   }
   componentDidMount(){
     this._isMounted = true
-    console.log('in hint, user: '+this.props.user)
     this.setState({user:this.props.user})
 
-    axios.get('/templates')
+    axios.get(`${env === 'development' ? 'http://localhost:5000':''}/templates`)
       .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user)})})
     this.setState({area:this.props.area})
   }
@@ -86,73 +83,7 @@ class Hint extends Component {
     }
     this.setState({points:e.target.value})
   }
-  countPoints(points) {
-    let basePoints = this.state.basePoints,
-        newPoints = basePoints - points,
-        level = ''
-    switch(true) {
-      case newPoints >= 0 && newPoints < 45:
-       level = 'Up to 45'
-        break
-      
-      case newPoints >= 45 && newPoints < 50:
-         level = 'High School D'
-        break
-      case newPoints >= 50 && newPoints < 55:
-      level = "High School C"
-        break
-      case newPoints >= 55 && newPoints < 59:
-      level = "High School B"
-        break
-      case newPoints === 59:
-      level = "High School A"
-        break
-     
-      case newPoints >= 60 && newPoints < 63:
-      level = "College D"
-        break
-      case newPoints >= 63 && newPoints < 66:
-      level = "College C"
-        break
-      case newPoints >= 66 && newPoints < 69:
-      level = "College B"
-        break
-      case newPoints === 69:
-      level = "College A"
-        break
-
-      case newPoints >= 70 && newPoints < 73:
-      level = "University D"
-        break
-      case newPoints >= 73 && newPoints < 76:
-      level = "University C"
-        break
-      case newPoints >= 76 && newPoints < 79:
-      level = "University B"
-        break
-      case newPoints === 79:
-      level = "University A"
-        break
-
-      case newPoints >= 80 && newPoints < 85:
-       level = "Master's D"
-        break
-      case newPoints >= 85 && newPoints < 90:
-        level = "Master's C"
-        break
-      case newPoints >= 90 && newPoints < 94:
-        level = "Master's B"
-        break
-      case newPoints === 94:
-        level = "Master's A"
-        break
-      case newPoints >=95 && newPoints <= 100:
-        level = "PhD"
-    }
-    this.setState({basePoints: newPoints})
-    this.props.setLevel(level)
-
-  }
+  
   recommendationsInput(e){
     let editObject = this.state.editObject
     let recommendations = this.state.recommendations
@@ -211,7 +142,7 @@ class Hint extends Component {
       points: this.state.points
     }      
     console.log(template)
-  axios.post(`/templates/add`,template)
+  axios.post(`${env === 'development' ? 'http://localhost:5000':''}/templates/add`,template)
     .then(res => this.componentDidMount())
   this.showAddForm()
   }
@@ -225,7 +156,7 @@ class Hint extends Component {
       points: this.state.editObject.points
     }      
     console.log(template)
-    axios.post(`/templates/update/`+this.state.editObject._id,template)
+    axios.post(`${env === 'development' ? 'http://localhost:5000':''}/templates/update/`+this.state.editObject._id,template)
     .then(res => this.componentDidMount())
   this.showEditForm()
   this.editIssues()
@@ -265,7 +196,7 @@ class Hint extends Component {
   deleteIssue(e) {
   
     let id = this.state.issues.find(i => i.keyword === e.target.innerText)._id
-    axios.delete('/templates/'+id)
+    axios.delete(`${env === 'development' ? 'http://localhost:5000':''}/templates/${id}`)
     .then(res => this.componentDidMount())
     this.setState({
       issues: this.state.issues.filter(el => el._id !== id)
@@ -279,6 +210,14 @@ class Hint extends Component {
     this.showEditForm(issueObject)  
   } 
   applyIssue(e) {
+
+    if (!e.target.getAttribute('class').includes('added')) {
+      e.target.setAttribute('class','issue added')
+    } else {
+      e.target.setAttribute('class','issue')
+    }
+      
+  
         // get str of area, eg: "content"
     let area = e.target.getAttribute("area"); 
         // get array of 3 recommendations
@@ -290,8 +229,9 @@ class Hint extends Component {
       oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
     }
         // send up to App component
+    
     this.props.appendIssue(area, oneRecommendation); 
-    this.countPoints(issueObject.points)
+
   }
 
   render() {
