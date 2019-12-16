@@ -29,7 +29,6 @@ class Unauthorized extends Component {
         );
     }
 }
-
 class App extends Component {
   constructor() {
     super();
@@ -44,7 +43,8 @@ class App extends Component {
       style: [],
       format: [],
       issues: [],
-      basePoints: 100
+      basePoints: 100,
+      loadedIssues: 0
     };
     this.appendIssue = this.appendIssue.bind(this);
     this.setUser = this.setUser.bind(this);
@@ -62,6 +62,7 @@ class App extends Component {
           this.setState({
             issues: res.data.filter(i => i.user === this.state.user)
           });
+          
       });
   }
 
@@ -108,6 +109,7 @@ class App extends Component {
           this.setState({
             issues: res.data.filter(i => i.user === this.state.user)
           });
+          this.setState({loadedIssues: this.state.loadedIssues+1})
       });
   }
   countPoints(points, action) {
@@ -210,7 +212,7 @@ class App extends Component {
                <Unauthorized/>
             </Route>
           <Route path="/dima">
-            <Header user="dima"/>
+            <Header user="dima" loadedIssues={this.state.loadedIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -265,7 +267,7 @@ class App extends Component {
           </Route>
 
           <Route path="/alex">
-            <Header user="alex"/>
+            <Header user="alex"  loadedIssues={this.state.loadedIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -319,8 +321,8 @@ class App extends Component {
             </main>
           </Route>
 
-          <Route path="/oksana">
-            <Header user="oksana"/>
+          <Route path="/oksana" >
+            <Header user="oksana" loadedIssues={this.state.loadedIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -374,8 +376,8 @@ class App extends Component {
             </main>
           </Route>
 
-          <Route path="/masha">
-            <Header user="masha"/>
+          <Route path="/masha" >
+            <Header user="masha"  loadedIssues={this.state.loadedIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
