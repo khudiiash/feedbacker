@@ -1,0 +1,249 @@
+.main-container {
+    display: flex;
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    box-shadow: 0 0 15px rgba(46, 46, 46, 0.1);
+    height: 90vh;
+}
+
+.hints {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    
+    .Hint {
+        background: rgb(255, 255, 255);
+        border-radius: 10px;
+        margin: 10px;
+        text-align: center;
+        color: rgba(46, 46, 46, 0.1);
+        font-weight: bold;
+        overflow: scroll;
+        max-height: 100vh;
+        &::-webkit-scrollbar { width: 0 !important }
+
+        &__addIssue {
+            display: block;
+            flex-direction: column;
+            margin-bottom: 20px;
+            textarea, input {
+                background: rgb(226, 226, 226);
+                resize: none;
+                outline: none;
+                border-radius: 5px;
+                border: none;
+                margin: 3px;
+                text-indent: 1em;
+                &::placeholder {
+                    color: rgba(70, 70, 70, 0.1)
+                }
+            }
+            &__recommendations {
+                display: flex;
+                flex-direction: column;
+                margin: 5px;
+            }
+            &__submit {
+                font-size: 15px;
+                padding-right: 25px ;
+                color: rgb(95, 95, 95);
+                background: rgb(113, 228, 119) !important;
+                font-weight: 400;
+            }
+            .points {
+                width: 65px;
+            }
+
+            
+        }
+        &__header {
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+            &__title {
+                width: 100%;
+                margin-top: 5px;
+                margin-right: 35px;
+                text-transform: capitalize;
+
+            }
+            &__add-issue, &__delete-issue, &__edit-issue {
+                background: rgb(243, 243, 243);
+                width: 65px;
+                float: right;
+                border: none;
+                font-weight: 400;
+                font-size: 13px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: rgb(151, 151, 151);
+                border-radius: 0 5px 0 5px;
+                transition: all 300ms;
+                cursor: pointer;
+                
+                .plus,.minus {
+                    transform-origin: center center;
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 auto;
+                    text-align: center;
+                    font-weight: 400;
+                    transition: 500ms;
+                }
+
+                &:hover {
+                    color: rgb(119, 119, 119);
+                    background: rgb(197, 253, 150);
+                   
+                }      
+               
+
+            }
+            &__edit-issue {
+                margin: 0 5px;
+                border-radius: 0 0 5px 5px;
+                &:hover {
+                    background: rgb(255, 237, 132);
+                }
+            }
+            &__delete-issue {
+                border-radius: 5px 0 5px 0;
+                &:hover{
+                    background: rgb(255, 145, 145)
+                }
+               
+            }
+        }
+       
+        .issues-container {
+            max-height: 36vh;
+            overflow-x: scroll;
+            &::-webkit-scrollbar { width: 0 !important }
+            padding-top: 10px;
+
+            .issue {
+                margin: 3px;
+                background: rgb(88, 88, 88);
+                border: none;
+                border-radius: 5px;
+                color: rgb(250, 250, 250);
+                transition: 100ms;
+                &:hover {
+                    transform: translateY(-4px);
+                }
+            }
+        }
+        
+    }
+    
+
+}
+
+.Feedback {
+    background: rgb(253, 253, 253);
+    min-height: 80vh;
+    width: 700px;
+    margin: 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(46, 46, 46, 0.1);
+    &__section {
+        margin: 20px 30px;
+    };
+    &__paragraph {
+        margin: 10px;
+    };
+    &__heading {
+        font-size: 16px;
+        text-align: center;
+        text-transform: capitalize;
+        color: rgb(88, 88, 88);
+        &.main {
+            font-size: 28px;
+        }
+    };
+    &__li {
+        list-style: none;
+    };
+    &__level {
+        margin: 15px;
+        float: right;
+        font-weight: 600;
+        
+    }
+}
+.Header {
+    height: 10vh;
+    background: rgb(46, 46, 46);
+    .radio {
+        width: 200px !important;
+    }
+    label {
+        background: rgb(63, 63, 63) !important;
+        &.focus {
+            background: rgb(131, 131, 131) !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        &.active {
+            background: rgb(85, 85, 85) !important;
+            border: 1px solid rgb(202, 202, 202) !important;
+        }
+        &.evaluator.active .evaluator-ava {
+            transform: scale(1.05);
+        }
+    }
+    
+    .evaluators {
+        float: right;
+        position: relative;
+        right: 30px;
+        .evaluator {
+            height: 60px;
+            width: 120px !important;
+            position: relative;
+            &:hover {
+                background: rgb(73, 73, 73) !important;
+            }
+            &-info {
+                display: flex;
+            }
+            &-name {
+                color: rgb(182, 182, 182);
+                /* height: 100%; */
+                line-height: 80px;
+                vertical-align: bottom;
+                font-size: 13px;
+                text-indent: 10px;
+                width: 35px;
+            }
+            &-ava {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                background-size: cover;
+                transition: transform 100ms ease-in;
+            }
+            &-name {
+                transition: all 100ms ease-in;
+            }
+            &:hover {
+                background: rgb(54, 54, 54);
+            }
+            &:hover .evaluator-ava {
+                transform: scale(1.05);
+            }
+            &:hover .evaluator-name {
+                color: rgb(235, 235, 235);
+                transform: translateX(3px);
+            }
+        }
+    }
+}
+
+
+
+
+
