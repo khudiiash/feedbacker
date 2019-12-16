@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios'
 import AddForm from "./AddForm.jsx";
 import EditForm from "./EditForm.jsx";
-let env = "development"
+let env = "production"
 
 class Hint extends Component {
   constructor() {

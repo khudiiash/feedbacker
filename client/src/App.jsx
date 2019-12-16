@@ -8,7 +8,7 @@ import {
 
 import "./App.scss";
 import axios from "axios";
-let env = 'development'
+let env = 'production'
 class App extends Component {
     constructor(){
         super()
