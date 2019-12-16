@@ -57,7 +57,7 @@ class Hint extends Component {
     console.log('in hint, user: '+this.props.user)
     this.setState({user:this.props.user})
 
-    axios.get('http://localhost:5000/templates')
+    axios.get('/templates')
       .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user)})})
     this.setState({area:this.props.area})
   }
@@ -211,7 +211,7 @@ class Hint extends Component {
       points: this.state.points
     }      
     console.log(template)
-  axios.post(`http://localhost:5000/templates/add`,template)
+  axios.post(`/templates/add`,template)
     .then(res => this.componentDidMount())
   this.showAddForm()
   }
@@ -225,7 +225,7 @@ class Hint extends Component {
       points: this.state.editObject.points
     }      
     console.log(template)
-  axios.post(`http://localhost:5000/templates/update/`+this.state.editObject._id,template)
+  axios.post(`/templates/update/`+this.state.editObject._id,template)
     .then(res => this.componentDidMount())
   this.showEditForm()
   this.editIssues()
@@ -265,7 +265,7 @@ class Hint extends Component {
   deleteIssue(e) {
   
     let id = this.state.issues.find(i => i.keyword === e.target.innerText)._id
-    axios.delete('http://localhost:5000/templates/'+id)
+    axios.delete('/templates/'+id)
     .then(res => this.componentDidMount())
     this.setState({
       issues: this.state.issues.filter(el => el._id !== id)
