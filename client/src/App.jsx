@@ -36,6 +36,11 @@ class App extends Component {
         axios.get(`${env === 'development' ? 'http://localhost:5000':''}/templates`)
         .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.user === this.state.user)})})
     }
+    componentDidUpdate(prevProps,prevState) {
+        if (prevState !== this.state) {
+          this.componentDidMount()
+        }
+      }
     componentWillUnmount(){
         this._isMounted = false
     }
@@ -52,6 +57,7 @@ class App extends Component {
         if (isEmpty) {
             issuesArray.push(recommendation)
             this.countPoints(issueObject.points, 'minus')
+            this.setState({[area]:issuesArray})
         }
         else {
             let issueObject = issues.find(i => i.recommendations.includes(recommendation))
@@ -64,7 +70,7 @@ class App extends Component {
                
             })
         }   
-        this.setState({[area]:issuesArray})
+       
     }
     countPoints(points,action) {
         let basePoints = this.state.basePoints,
