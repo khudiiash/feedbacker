@@ -9,7 +9,14 @@ const Paragraph = (props) => {
         <div className='Feedback__section'>
         <h4 className='Feedback__heading'>{issuesArray.length ? area : ''}</h4>
         <p className='Feedback__paragraph'>{issuesArray
-          ? issuesArray.map(r => r.replace(/\.$/,'')).join('. ')
+          ? issuesArray.map((r,index) => {
+            if (issuesArray.length > 1 && index < issuesArray.length-1) {
+              return r.replace(/\.$|\. $/,'')
+            } 
+            else {
+              return r
+            }
+          }).join('. ')
           : ""}
         </p>
         

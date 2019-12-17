@@ -22,11 +22,13 @@
     .Hint {
         background: rgb(255, 255, 255);
         border-radius: 10px;
-        margin: 10px;
+        margin: 1vh 1vw;
+        width: 100%;
         text-align: center;
         color: rgba(46, 46, 46, 0.1);
         font-weight: bold;
         overflow: scroll;
+        height: auto;
         max-height: 100vh;
         &::-webkit-scrollbar { width: 0 !important }
 
@@ -73,6 +75,10 @@
                 margin-top: 5px;
                 margin-right: 35px;
                 text-transform: capitalize;
+                -webkit-user-select: none; /* Safari */        
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE10+/Edge */
+                user-select: none; /* Standard */
 
             }
             &__add-issue, &__delete-issue, &__edit-issue {
@@ -90,6 +96,10 @@
                 border-radius: 0 5px 0 5px;
                 transition: all 300ms;
                 cursor: pointer;
+                -webkit-user-select: none; /* Safari */        
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE10+/Edge */
+                user-select: none; /* Standard */
                 
                 .plus,.minus {
                     transform-origin: center center;
@@ -126,7 +136,8 @@
         }
        
         .issues-container {
-            max-height: 36vh;
+            height: fit-content;
+
             overflow-x: scroll;
             &::-webkit-scrollbar { width: 0 !important }
             padding-top: 10px;
@@ -138,6 +149,10 @@
                 border-radius: 5px;
                 color: rgb(250, 250, 250);
                 transition: 100ms;
+                -webkit-user-select: none; /* Safari */        
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE10+/Edge */
+                user-select: none; /* Standard */
                 &.added {
                     border: 2px solid orange;
                 }
@@ -159,8 +174,10 @@
     background: rgb(253, 253, 253);
     min-height: 80vh;
     overflow-x: scroll;
-    width: 700px;
-    margin: 10px 20px;
+    
+    width: 46vw;
+    margin: 10px 0;
+    margin-left: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(46, 46, 46, 0.1);
     &::-webkit-scrollbar { width: 0 !important }
@@ -192,6 +209,10 @@
             float: right !important;
             color: rgba(255, 145, 145, 0.466);
             transition: 300ms;
+            -webkit-user-select: none; /* Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
             &:hover {
                 color: rgb(255, 65, 65);
             }
