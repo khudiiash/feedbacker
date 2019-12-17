@@ -25,8 +25,7 @@ const List = (props) => {
         {issuesArray
           ? issuesArray.map((recommendation, index) => {
               return (
-                <li className="Feedback__li" key={index}>
-          {index+1}. {recommendation}
+                <li className="Feedback__li" key={index} dangerouslySetInnerHTML={{__html: `${index+1}. ${recommendation}`}}>
                 </li>
               );
             })
