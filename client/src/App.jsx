@@ -190,7 +190,8 @@ class App extends Component {
       structure: [],
       grammar: [],
       style: [],
-      format: []
+      format: [],
+      basePoints: 100
     });
   }
   setUser(user) {

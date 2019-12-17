@@ -163,6 +163,7 @@
     margin: 10px 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(46, 46, 46, 0.1);
+    &::-webkit-scrollbar { width: 0 !important }
     &__section {
         margin: 20px 30px;
     };
