@@ -63,7 +63,7 @@ class Feedback extends Component {
       <div className="Feedback">
         <div className="Feedback__heading">
             <h1 className="Feedback__heading main"><b>Feedback</b></h1>
-            <img src="https://img.icons8.com/ios/50/000000/delete-sign.png" className='Feedback__heading__clearFeedback' title="Clear the feedback" onClick={this.props.clearFeedback}></img>
+            <div className='Feedback__heading__clearFeedback' title="Clear the feedback" unSelectable="on" onClick={this.props.clearFeedback}></div>
         </div>
         
         <div className="Feedback__body">

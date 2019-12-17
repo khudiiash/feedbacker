@@ -176,49 +176,53 @@
     overflow-x: scroll;
     line-height: 1.5;
     font-family: "Times New Roman","Roboto",serif;
+    color: black;
     font-size: 16px;
     width: 46vw;
     margin: 10px 0;
     margin-left: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(46, 46, 46, 0.1);
+    padding: 0 25px;
     &::-webkit-scrollbar { width: 0 !important }
     &__section {
-        margin: 20px 30px;
+        margin: 20px 0;
     };
     &__paragraph {
-        margin: 10px;
+        margin: 10px 0;
+        text-indent: 3em;
     };
     &__heading {
         font-size: 16px;
         text-align: center;
         text-transform: capitalize;
-        color: rgb(88, 88, 88);
+        color: rgb(0, 0, 0);
         display: flex;
         justify-content: center;
         width: 100%;
         margin-top: 10px;
         &.main {
             font-size: 16px;
-            margin-left: 35px;
         }
         &__clearFeedback {
-            width: 25px;
-            height: 25px;
-            color: #777;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 70vw;
             border: 0;
             padding: 5px;
             margin: 5px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.048);
-            transition: 200ms;
+            background: url('https://img.icons8.com/ios/50/000000/delete-sign.png');
+            background-size: cover;
+            transition: transform 700ms;
             outline: none;
             -webkit-user-select: none; /* Safari */        
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+/Edge */
             user-select: none; /* Standard */
             &:hover {
-                background: rgba(255, 151, 151,.3);
+                transform: rotate(180deg)
             }
             &:focus {
                 outline: none;
