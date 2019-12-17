@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios'
 import AddForm from "./AddForm.jsx";
 import EditForm from "./EditForm.jsx";
-let env = "production"
+let env = "d"
 
 class Hint extends Component {
   constructor() {
@@ -53,7 +53,7 @@ class Hint extends Component {
   componentDidMount(){
     this._isMounted = true
     this.setState({user:this.props.user})
-    axios.get(`${env === 'development' ? 'http://localhost:5000':''}/templates`)
+    axios.get(`${env === 'd' ? 'http://localhost:5000':''}/templates`)
       .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user)})})
     this.setState({area:this.props.area})
     this.props.updateApp(this.props.user)
@@ -142,7 +142,7 @@ class Hint extends Component {
       points: this.state.points
     }      
     console.log(template)
-  axios.post(`${env === 'development' ? 'http://localhost:5000':''}/templates/add`,template)
+  axios.post(`${env === 'd' ? 'http://localhost:5000':''}/templates/add`,template)
     .then(res => this.componentDidMount())
   this.showAddForm()
   
@@ -157,7 +157,7 @@ class Hint extends Component {
       points: this.state.editObject.points
     }      
     console.log(template)
-    axios.post(`${env === 'development' ? 'http://localhost:5000':''}/templates/update/`+this.state.editObject._id,template)
+    axios.post(`${env === 'd' ? 'http://localhost:5000':''}/templates/update/`+this.state.editObject._id,template)
     .then(res => this.componentDidMount())
   this.showEditForm()
   this.editIssues()
@@ -197,7 +197,7 @@ class Hint extends Component {
   deleteIssue(e) {
   
     let id = this.state.issues.find(i => i.keyword === e.target.innerText)._id
-    axios.delete(`${env === 'development' ? 'http://localhost:5000':''}/templates/${id}`)
+    axios.delete(`${env === 'd' ? 'http://localhost:5000':''}/templates/${id}`)
     .then(res => this.componentDidMount())
     this.setState({
       issues: this.state.issues.filter(el => el._id !== id)

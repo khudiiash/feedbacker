@@ -11,7 +11,7 @@ import { Header, Feedback, Hint } from "./components";
 
 import "./App.scss";
 import axios from "axios";
-let env = "production";
+let env = "d";
 
 
 class Unauthorized extends Component {
@@ -56,7 +56,7 @@ class App extends Component {
   componentDidMount() {
     this._isMounted = true;
     axios
-      .get(`${env === "development" ? "http://localhost:5000" : ""}/templates`)
+      .get(`${env === "d" ? "http://localhost:5000" : ""}/templates`)
       .then(res => {
         if (this._isMounted)
           this.setState({
@@ -104,7 +104,7 @@ class App extends Component {
   updateApp(user){
     this.setState({user})
     axios
-      .get(`${env === "development" ? "http://localhost:5000" : ""}/templates`)
+      .get(`${env === "d" ? "http://localhost:5000" : ""}/templates`)
       .then(res => {
           this.setState({
             issues: res.data.filter(i => i.user === this.state.user)
@@ -118,6 +118,9 @@ class App extends Component {
         action === "minus" ? basePoints - points : basePoints + points,
       level = "";
     switch (true) {
+      case newPoints <= 0:
+        level = "Zero";
+        break;
       case newPoints >= 0 && newPoints < 45:
         level = "Up to 45";
         break;
