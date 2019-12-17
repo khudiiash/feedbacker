@@ -180,6 +180,10 @@ class App extends Component {
     this.setLevel(level);
   }
   clearFeedback() {
+    let activeIssues = document.getElementsByClassName('issue')
+    for (var el of activeIssues) {
+      el.setAttribute('class','issue')
+    }
     this.setState({
       level: "",
       content: [],
