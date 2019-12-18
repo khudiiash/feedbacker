@@ -29,7 +29,14 @@
         font-weight: bold;
         overflow: scroll;
         height: 30vh;
+        transition: height 600ms;
         &::-webkit-scrollbar { width: 0 !important }
+        &:hover {
+            height: 100vh;
+        }
+        &:hover > .issues-container{
+            height: 100vh;
+        }
 
         &__addIssue {
             display: block;
@@ -62,6 +69,7 @@
             .points {
                 width: 80px;
             }
+            
 
             
         }
@@ -135,7 +143,8 @@
         }
        
         .issues-container {
-            height: 20vh;
+            transition: height 600ms;
+            height: 23vh;
 
             overflow-x: scroll;
             &::-webkit-scrollbar { width: 0 !important }
@@ -215,6 +224,7 @@
             background: url('https://img.icons8.com/ios/50/000000/delete-sign.png');
             background-size: cover;
             transition: transform 700ms;
+            cursor: pointer;
             outline: none;
             -webkit-user-select: none; /* Safari */        
             -moz-user-select: none; /* Firefox */

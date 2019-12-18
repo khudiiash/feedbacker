@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Link
 } from "react-router-dom";
 import { Header, Feedback, Hint } from "./components";
 
