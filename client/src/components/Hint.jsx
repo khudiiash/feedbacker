@@ -21,6 +21,7 @@ class Hint extends Component {
     this.editIssues = this.editIssues.bind(this)
     this.chooseIssueToEdit = this.chooseIssueToEdit.bind(this)
     this.editIssue = this.editIssue.bind(this)
+    this.changeMode = this.changeMode.bind(this)
 
     this.state = {
       user: '',
@@ -44,7 +45,8 @@ class Hint extends Component {
       issueMode: 'apply',
       editObject: {},
       level: '',
-      basePoints: 100
+      basePoints: 100,
+      mode: 'list'
       
     }
     this._isMounted = false;
@@ -52,17 +54,23 @@ class Hint extends Component {
   }
   componentDidMount(){
     this._isMounted = true
-    this.setState({user:this.props.user})
+    this.setState({user:this.props.user,mode: this.props.mode[this.props.area]})
     axios.get(`${env === 'd' ? 'http://localhost:5000':''}/templates`)
       .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user)})})
     this.setState({area:this.props.area})
     this.props.updateApp(this.props.user)
+    if (this.props.area === "content") {
+      this.setState({mode: 'paragraph'})
+    }
   }
   componentWillUnmount(){
     this._isMounted = false
   }
   componentDidUpdate(prevProps,prevState) {
     if (prevProps.user !== this.props.user) {
+      this.componentDidMount()
+    }
+    if (prevProps.mode !== this.props.mode) {
       this.componentDidMount()
     }
   }
@@ -95,6 +103,13 @@ class Hint extends Component {
     }
     this.setState({recommendations})
 
+  }
+  changeMode(e){
+      let mode  =  e.target.innerText === 'list' ? 'paragraph' : 'list'
+      this.setState({
+        mode
+      })
+      this.props.sendMode(this.state.area,mode)
   }
   showAddForm(){
 
@@ -141,7 +156,6 @@ class Hint extends Component {
       recommendations: this.state.recommendations,
       points: this.state.points
     }      
-    console.log(template)
   axios.post(`${env === 'd' ? 'http://localhost:5000':''}/templates/add`,template)
     .then(res => this.componentDidMount())
   this.showAddForm()
@@ -156,7 +170,6 @@ class Hint extends Component {
       recommendations: this.state.editObject.recommendations,
       points: this.state.editObject.points
     }      
-    console.log(template)
     axios.post(`${env === 'd' ? 'http://localhost:5000':''}/templates/update/`+this.state.editObject._id,template)
     .then(res => this.componentDidMount())
   this.showEditForm()
@@ -264,11 +277,14 @@ class Hint extends Component {
             </div>
           <div className="Hint__header__edit-issue" onClick={this.editIssues}>
                 <div className='edit' id='edit'>edit</div>
-            </div>
+          </div>
+          <div className="Hint__header__edit-issue" onClick={this.changeMode}>
+                <div className='edit' id='mode'>{this.state.mode}</div>
+          </div>
             <h5 className='Hint__header__title'>{this.props.area}</h5>
-            <div className="Hint__header__add-issue" onClick={this.showAddForm}>
-               add
-            </div>
+          <div className="Hint__header__add-issue" onClick={this.showAddForm}>
+              add
+          </div>
           </div>
       
         <AddForm keyword={this.state.keyword} recommendations={this.state.recommendations} points={this.state.points} addIssue={this.addIssue} keywordInput={this.keywordInput} recommendationsInput={this.recommendationsInput} pointsInput={this.pointsInput} display={addDisplay}/>

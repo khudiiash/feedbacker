@@ -29,7 +29,7 @@
         font-weight: bold;
         overflow: scroll;
         height: 30vh;
-        transition: height 600ms;
+        transition: height 1s;
         &::-webkit-scrollbar { width: 0 !important }
         &:hover {
             height: 100vh;
@@ -80,7 +80,8 @@
             &__title {
                 width: 100%;
                 margin-top: 5px;
-                margin-right: 35px;
+                margin-right: 55px;
+                width: 100%;
                 text-transform: capitalize;
                 -webkit-user-select: none; /* Safari */        
                 -moz-user-select: none; /* Firefox */
@@ -143,7 +144,7 @@
         }
        
         .issues-container {
-            transition: height 600ms;
+            transition: height 900ms;
             height: 23vh;
 
             overflow-x: scroll;
@@ -174,8 +175,20 @@
         }
         
     }
+
+   
     
 
+}
+.hints:not(.right) {
+   
+        .Hint {
+            height: 45vh;
+            .issues-container {
+                height: 34vh;
+            }
+           
+        }
 }
 
 .Feedback {

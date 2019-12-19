@@ -10,6 +10,13 @@ import "./App.scss";
 import axios from "axios";
 let env = "p";
 
+let modeIds = {
+  'dima': '5dfb91fe1c9d4400000623a3',
+  'alex':'5dfb931a1c9d4400000623a4',
+  'oksana': '5dfb93291c9d4400000623a5',
+  'masha':'5dfb93401c9d4400000623a6'
+}
+
 
 class Unauthorized extends Component {
     render() {
@@ -41,7 +48,14 @@ class App extends Component {
       format: [],
       issues: [],
       basePoints: 100,
-      loadedIssues: 0
+      loadedIssues: 0,
+      mode: {
+        content: 'paragraph',
+        structure: 'list',
+        grammar: 'list',
+        style: 'list',
+        format: 'list'
+      }
     };
     this.appendIssue = this.appendIssue.bind(this);
     this.setUser = this.setUser.bind(this);
@@ -49,6 +63,7 @@ class App extends Component {
     this.clearFeedback = this.clearFeedback.bind(this);
     this.countPoints = this.countPoints.bind(this);
     this.updateApp = this.updateApp.bind(this);
+    this.sendMode = this.sendMode.bind(this);
   }
   componentDidMount() {
     this._isMounted = true;
@@ -60,7 +75,22 @@ class App extends Component {
             issues: res.data.filter(i => i.user === this.state.user)
           });
           
-      });
+      })
+      .catch(err => console.log('templates error '+err))
+    axios
+      .get(`${env === "d" ? "http://localhost:5000" : ""}/preferences`)
+      .then(res => {
+        if (this._isMounted) {
+          let obj = res.data.find(i => i.user === this.state.user)
+           this.setState({
+            mode: obj.mode
+          });
+        }
+        
+         
+          
+      })
+      .catch(err => console.log('preferences error '+err))
   }
 
   componentWillUnmount() {
@@ -97,6 +127,18 @@ class App extends Component {
       });
     }
     this.updateApp()
+  }
+  sendMode(area,mode) {
+    let modeObj = this.state.mode
+    modeObj[area] = mode
+    
+    this.setState({mode: modeObj})
+    let preference = {
+      user: this.state.user,
+      mode: modeObj
+    }      
+    axios.post(`${env === 'd' ? 'http://localhost:5000':''}/preferences/update/`+modeIds[this.state.user],preference)
+    .then(res => this.componentDidMount())
   }
   updateApp(user){
     this.setState({user})
@@ -210,6 +252,7 @@ class App extends Component {
   }
   render() {
     // destructuring issues
+
     return (
       <Router>
         <div className="App">
@@ -222,17 +265,21 @@ class App extends Component {
               <div className="left hints">
                 <Hint
                   user="dima"
-                  area={"content"}
+                  area="content"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='dima'
-                  area={"structure"}
+                  area="structure"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
               </div>
               <Feedback
@@ -243,29 +290,36 @@ class App extends Component {
                 grammar={this.state.grammar}
                 format={this.state.format}
                 style={this.state.style}
+                mode={this.state.mode}
               />
 
               <div className="right hints">
                 <Hint
                   user='dima'
-                  area={"grammar"}
+                  area="grammar"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='dima'
-                  area={"style"}
+                  area="style"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='dima'
-                  area={"format"}
+                  area="format"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
               </div>
             </main>
@@ -277,18 +331,23 @@ class App extends Component {
               <div className="left hints">
                 <Hint
                   user="alex"
-                  area={"content"}
+                  area="content"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
-                <Hint
+                 <Hint
                   user='alex'
-                  area={"structure"}
+                  area="style"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
+             
               </div>
               <Feedback
                 clearFeedback={this.clearFeedback}
@@ -298,29 +357,39 @@ class App extends Component {
                 grammar={this.state.grammar}
                 format={this.state.format}
                 style={this.state.style}
+                mode={this.state.mode}
               />
 
               <div className="right hints">
-                <Hint
+              <Hint
                   user='alex'
-                  area={"grammar"}
+                  area="structure"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='alex'
-                  area={"style"}
+                  area="grammar"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
+               
                 <Hint
                   user='alex'
-                  area={"format"}
+                  area="format"
+                  mode={this.state.mode}
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
+      
                 />
               </div>
             </main>
@@ -332,17 +401,21 @@ class App extends Component {
               <div className="left hints">
                 <Hint
                   user="oksana"
-                  area={"content"}
+                  area="content"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='oksana'
-                  area={"structure"}
+                  area="structure"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
               </div>
               <Feedback
@@ -353,29 +426,36 @@ class App extends Component {
                 grammar={this.state.grammar}
                 format={this.state.format}
                 style={this.state.style}
+                mode={this.state.mode}
               />
 
               <div className="right hints">
                 <Hint
                   user='oksana'
-                  area={"grammar"}
+                  area="grammar"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='oksana'
-                  area={"style"}
+                  area="style"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='oksana'
-                  area={"format"}
+                  area="format"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
               </div>
             </main>
@@ -387,17 +467,21 @@ class App extends Component {
               <div className="left hints">
                 <Hint
                   user="masha"
-                  area={"content"}
+                  area="content"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='masha'
-                  area={"structure"}
+                  area="structure"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
               </div>
               <Feedback
@@ -408,29 +492,36 @@ class App extends Component {
                 grammar={this.state.grammar}
                 format={this.state.format}
                 style={this.state.style}
+                mode={this.state.mode}
               />
 
               <div className="right hints">
                 <Hint
                   user='masha'
-                  area={"grammar"}
+                  area="grammar"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='masha'
-                  area={"style"}
+                  area="style"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
                 <Hint
                   user='masha'
-                  area={"format"}
+                  area="format"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
+                  sendMode={this.sendMode}
+                  mode={this.state.mode}
                 />
               </div>
             </main>

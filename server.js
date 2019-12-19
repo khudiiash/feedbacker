@@ -17,8 +17,10 @@ connection.once('open', () => {
 })
 
 const templatesRouter = require('./routes/templates');
+const preferencesRouter = require('./routes/preferences');
 
 app.use('/templates', templatesRouter);
+app.use('/preferences', preferencesRouter);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'))
