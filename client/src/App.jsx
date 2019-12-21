@@ -258,8 +258,6 @@ class App extends Component {
     .then(res => this.componentDidMount())
   }
   updateApp(){
-    // this.setState({user})
-    let user = this.state.user
     axios
       .get(`${env === "d" ? "http://localhost:5000" : ""}/templates`)
       .then(res => {
@@ -275,8 +273,7 @@ class App extends Component {
       newPoints =
         action === "minus" ? basePoints - points : basePoints + points,
       level = "";
-    console.log('base '+basePoints)
-    console.log('new '+newPoints)
+
     switch (true) {
       case newPoints <= 0:
         level = "Zero";
@@ -679,7 +676,6 @@ class App extends Component {
 function parallax(event) {
 	this.querySelectorAll('.Hint__header__title').forEach(layer => {
     let speed = layer.getAttribute('data-speed');
-    console.log(-event.clientX*speed/600)
     layer.style.backgroundPositionX = `${Math.floor(event.clientX*speed/50)-200}px`
     layer.style.backgroundPositionY = `${Math.floor(event.clientY*speed/50)+320}px;`
      

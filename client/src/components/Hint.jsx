@@ -273,7 +273,7 @@ class Hint extends Component {
           <div className="Hint__header__edit-issue" onClick={this.changeMode}>
                 <div className='edit' id='mode'>{this.state.mode}</div>
           </div>
-            <h5 className='Hint__header__title' data-speed={Math.floor(this.props.area.length/2)}><h2>{this.props.area}</h2></h5>
+            <div className='Hint__header__title' data-speed={Math.floor(this.props.area.length/3)}><h2>{this.props.area}</h2></div>
           <div className="Hint__header__add-issue" onClick={this.showAddForm}>
               add
           </div>

@@ -11,7 +11,6 @@ router.route('/').get((req, res) => {
 router.route('/update/:id').post((req, res) => {
   Preference.findById(req.params.id)
     .then(Preference => {
-        console.log(req.body.mode)
         Preference.mode = req.body.mode
 
         Preference.save()

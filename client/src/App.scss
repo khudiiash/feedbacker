@@ -380,13 +380,26 @@
         border-bottom: 1px solid rgb(94, 94, 94);
         outline: none;
         width: 100px;
-        transition: height 600ms, width 800ms, border-color 600ms;
-        &:hover {
-            width: 200px;
+        transition: height 600ms, width 800ms, border-color 600ms, text-indent 200ms;
+        transition-timing-function: ease-in;
+        text-indent: 0;
+        &::placeholder {
+            color: rgb(94, 94, 94);
+            transition: 800ms;
         }
+        &:hover {
+            width: 150px;
+            text-indent: 1em;   
+            border-color: rgba(255, 174, 0, 0.705);  
+            &::placeholder {
+                color: rgba(255, 166, 0, 0.501);       
+        }
+    }
         
-        &:focus {
+        
+        &:focus {   
             background: transparent !important;
+            text-indent: 1em;
             border: none  !important;
             caret-color: white  !important;
             color: rgb(255, 255, 255)  !important;
