@@ -348,7 +348,9 @@ class App extends Component {
     for (var el of activeIssues) {
       el.setAttribute('class','issue')
     }
-    console.log('clear triggered')
+    let searchInput = document.getElementById('searchIssues')
+    searchInput.value=''
+
     this.setState({
       level: "",
       content: [],
@@ -674,5 +676,17 @@ class App extends Component {
     );
   }
 }
+function parallax(event) {
+	this.querySelectorAll('.Hint__header__title').forEach(layer => {
+    let speed = layer.getAttribute('data-speed');
+    console.log(-event.clientX*speed/600)
+    layer.style.backgroundPositionX = `${Math.floor(event.clientX*speed/50)-200}px`
+    layer.style.backgroundPositionY = `${Math.floor(event.clientY*speed/50)+320}px;`
+     
+	})
+}
+
+document.addEventListener('mousemove', parallax)
 
 export default App;
+

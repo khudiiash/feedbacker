@@ -236,14 +236,6 @@ class Hint extends Component {
   applyIssue(e) {
   
     let issue = this.state.issues.find(i => i.keyword === e.target.innerText);
-    // let recommendations = issueObject.recommendations 
-    //     // get 1 random 
-    // let oneRecommendation = ''
-    // while (oneRecommendation === '') {
-    //   oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
-    // }
-    //     // send up to App component
-    
     this.props.appendIssue(issue);
     this.componentDidMount()
 
@@ -281,12 +273,12 @@ class Hint extends Component {
           <div className="Hint__header__edit-issue" onClick={this.changeMode}>
                 <div className='edit' id='mode'>{this.state.mode}</div>
           </div>
-            <h5 className='Hint__header__title'>{this.props.area}</h5>
+            <h5 className='Hint__header__title' data-speed={Math.floor(this.props.area.length/2)}><h2>{this.props.area}</h2></h5>
           <div className="Hint__header__add-issue" onClick={this.showAddForm}>
               add
           </div>
           </div>
-      
+        
         <AddForm keyword={this.state.keyword} recommendations={this.state.recommendations} points={this.state.points} addIssue={this.addIssue} keywordInput={this.keywordInput} recommendationsInput={this.recommendationsInput} pointsInput={this.pointsInput} display={addDisplay}/>
         <EditForm editIssue={this.editIssue} editObject={this.state.editObject} keywordInput={this.keywordInput} recommendationsInput={this.recommendationsInput} pointsInput={this.pointsInput} display={editDisplay}/>
         <div className="issues-container">
@@ -307,6 +299,7 @@ class Hint extends Component {
               })
             : ""}
         </div>
+       
       </div>
     );
   }

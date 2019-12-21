@@ -37,7 +37,10 @@ class Search extends Component {
             <div className='Search' style={this.props.style}>
                 <input 
                 ref={(input) => { this.inputElement = input }}
-                className='Search__input' onChange={this.handleInput} placeholder='Search'></input>                    
+                className='Search__input' 
+                id='searchIssues' 
+                onChange={this.handleInput} 
+                placeholder='Search'></input>                    
             </div>
         );
     }

@@ -82,26 +82,47 @@
                 width: 100%;
                 margin-top: 5px;
                 margin-right: 85px;
-                width: 150px;
+                
+                width: 200px;
                 text-transform: capitalize;
                 -webkit-user-select: none; /* Safari */        
                 -moz-user-select: none; /* Firefox */
                 -ms-user-select: none; /* IE10+/Edge */
                 user-select: none; /* Standard */
 
+                background: url('https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') repeat center center;
+                background-size: 200% 200%;
+                color: #fff;
+                -webkit-text-fill-color: transparent;
+                -webkit-background-clip: text;
+
+                color: rgb(189, 189, 189);
+                h2 {
+                    font-size: 22px;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    text-align: center;
+                    -webkit-transition: text-shadow 1s ease;
+                    text-shadow: 0 0 1px rgba(0,0,0,.1);
+                    margin: 0;
+                    padding: 0;
+                }
+
             }
             &__add-issue, &__delete-issue, &__edit-issue {
-                background: rgb(243, 243, 243);
+                background: #fff;
+                box-shadow: 0 0 12px rgba(49, 49, 49, 0.1);
+                padding: 2px;
                 width: 65px;
                 float: right;
                 border: none;
                 font-weight: 400;
-                font-size: 13px;
+                font-size: 12px;
                 text-align: center;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: rgb(151, 151, 151);
+                color: rgb(194, 194, 194);
                 border-radius: 0 5px 0 5px;
                 transition: all 300ms;
                 cursor: pointer;
@@ -278,10 +299,7 @@
             font-size: 18px;
             font-weight: 400;
         }
-        
-      
-      
-        
+               
     }
     .radio {
         width: 200px !important;
@@ -305,7 +323,8 @@
     .evaluators {
         float: right;
         position: relative;
-        right: 30px;
+        right: 20px;
+        top: 6px;
         .evaluator {
             height: 60px;
             width: 120px !important;
@@ -371,7 +390,7 @@
             border: none  !important;
             caret-color: white  !important;
             color: rgb(255, 255, 255)  !important;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.795)  !important;
+            border-bottom: 1px dashed rgba(255, 161, 72, 0.795)  !important;
             outline: none  !important;
             width: 45vw;
 
@@ -428,7 +447,7 @@
         width: 5px;
         height: 5px;
         border-radius: 5px;
-        background: rgb(52, 165, 37);
+        background:  radial-gradient(#333 30%, rgb(255, 168, 69) 75%, #333 75%);
       }
       
       &:nth-child(2) {  animation-delay: 240ms; }
