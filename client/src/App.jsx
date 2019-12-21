@@ -52,11 +52,11 @@ class App extends Component {
       basePoints: 100,
       loadedIssues: 0,
       mode: {
-        content: 'paragraph',
-        structure: 'list',
-        grammar: 'list',
-        style: 'list',
-        format: 'list'
+        content: '',
+        structure: '',
+        grammar: '',
+        style: '',
+        format: ''
       },
       styles: {
         search: {
@@ -109,7 +109,9 @@ class App extends Component {
 
   componentWillUnmount() {
     this._isMounted = false;
+
   }
+
   appendFoundIssues(issuesArray) {
 
     let issueButtons = document.getElementsByClassName('issue')
@@ -247,7 +249,10 @@ class App extends Component {
   }
   sendMode(area,mode) {
     let modeObj = this.state.mode
+    console.log(modeObj)
+    console.log(area+' '+mode)
     modeObj[area] = mode
+
     
     this.setState({mode: modeObj})
     let preference = {

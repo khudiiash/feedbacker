@@ -69,9 +69,7 @@ class Hint extends Component {
         )
     this.setState({area:this.props.area})
     this.props.updateApp(this.props.user)
-    if (this.props.area === "content") {
-      this.setState({mode: 'paragraph'})
-    }
+    
   }
   componentWillUnmount(){
     this._isMounted = false
@@ -115,6 +113,7 @@ class Hint extends Component {
 
   }
   changeMode(e){
+      
       let mode  =  e.target.innerText === 'list' ? 'paragraph' : 'list'
       this.setState({
         mode
