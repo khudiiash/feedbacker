@@ -79,6 +79,7 @@ class App extends Component {
   }
   componentDidMount() {
     this._isMounted = true;
+
     axios
       .get(`${env === "d" ? "http://localhost:5000" : ""}/templates`)
       .then(res => {
@@ -394,7 +395,9 @@ class App extends Component {
                 />
               </div>
               <Feedback
+                setUser={this.setUser}
                 clearFeedback={this.clearFeedback}
+                setUser={this.setUser}
                 level={this.state.level}
                 content={this.state.content}
                 structure={this.state.structure}
@@ -402,6 +405,7 @@ class App extends Component {
                 format={this.state.format}
                 style={this.state.style}
                 mode={this.state.mode}
+                user='dima'
               />
 
               <div className="right hints">
@@ -462,6 +466,7 @@ class App extends Component {
              
               </div>
               <Feedback
+                setUser={this.setUser}
                 clearFeedback={this.clearFeedback}
                 level={this.state.level}
                 content={this.state.content}
@@ -470,6 +475,7 @@ class App extends Component {
                 format={this.state.format}
                 style={this.state.style}
                 mode={this.state.mode}
+                user='alex'
               />
 
               <div className="right hints">
@@ -533,6 +539,7 @@ class App extends Component {
                 />
               </div>
               <Feedback
+                setUser={this.setUser}
                 clearFeedback={this.clearFeedback}
                 level={this.state.level}
                 content={this.state.content}
@@ -541,6 +548,8 @@ class App extends Component {
                 format={this.state.format}
                 style={this.state.style}
                 mode={this.state.mode}
+                user='oksana'
+
               />
 
               <div className="right hints">
@@ -600,6 +609,7 @@ class App extends Component {
                 />
               </div>
               <Feedback
+                setUser={this.setUser}
                 clearFeedback={this.clearFeedback}
                 level={this.state.level}
                 content={this.state.content}
@@ -608,6 +618,8 @@ class App extends Component {
                 format={this.state.format}
                 style={this.state.style}
                 mode={this.state.mode}
+                user='masha'
+
               />
 
               <div className="right hints">

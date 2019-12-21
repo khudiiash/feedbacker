@@ -63,7 +63,7 @@ class Feedback extends Component {
     }
   }
   componentDidMount(){
-
+    this.props.setUser(this.props.user)
   }
   render() {
     let content = this.props.content,
