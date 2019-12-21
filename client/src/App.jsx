@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from "react-router-dom";
-import { Header, Feedback, Hint } from "./components";
+import { Header, Feedback, Hint, Search } from "./components";
 
 import "./App.scss";
 import axios from "axios";
 let env = "p";
+
 
 let modeIds = {
   'dima': '5dfb91fe1c9d4400000623a3',
@@ -55,15 +57,24 @@ class App extends Component {
         grammar: 'list',
         style: 'list',
         format: 'list'
+      },
+      styles: {
+        search: {
+          width: '0',
+          height: '0',
+        }
       }
     };
     this.appendIssue = this.appendIssue.bind(this);
+    this.appendFoundIssues = this.appendFoundIssues.bind(this);
     this.setUser = this.setUser.bind(this);
     this.setLevel = this.setLevel.bind(this);
     this.clearFeedback = this.clearFeedback.bind(this);
     this.countPoints = this.countPoints.bind(this);
     this.updateApp = this.updateApp.bind(this);
     this.sendMode = this.sendMode.bind(this);
+
+    
   }
   componentDidMount() {
     this._isMounted = true;
@@ -91,41 +102,138 @@ class App extends Component {
           
       })
       .catch(err => console.log('preferences error '+err))
+     
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
-  appendIssue(area, recommendation) {
-    let isEmpty = true;
-    let issues = this.state.issues;
-    let issuesArray = this.state[area];
-    
-    let issueObject = issues.find(io =>
-      io.recommendations.includes(recommendation)
-    );
-    let issueObjectRecommendations = issueObject.recommendations;
+  appendFoundIssues(issuesArray) {
 
-    issueObjectRecommendations.forEach(r => {
-      if (issuesArray.includes(r)) isEmpty = false;
-    });
-
-    if (isEmpty) {
-      issuesArray.push(recommendation);
-      this.countPoints(issueObject.points, "minus");
-      this.setState({ [area]: issuesArray });
-    } else {
-      let issueObject = issues.find(i =>
-        i.recommendations.includes(recommendation)
-      );
-      issueObject.recommendations.forEach(r => {
-        if (issuesArray.includes(r)) {
-          issuesArray.splice(issuesArray.indexOf(r), 1);
-          this.countPoints(issueObject.points, "plus");
-
-        }
-      });
+    let issueButtons = document.getElementsByClassName('issue')
+    let keywords = issuesArray.map(i => i.keyword)
+    let areas = issuesArray.map(i => i.area)
+    areas = [...new Set(areas)]
+    for (var button of issueButtons) {
+      if (!button.getAttribute('class').includes('added') && keywords.includes(button.innerText)) {
+        button.setAttribute('class','issue added')
+      } else if (!keywords.includes(button.innerText)){
+        button.setAttribute('class','issue')
+      }
+          
     }
+    let allPossibleRecs = issuesArray.map(i => i.recommendations)
+    allPossibleRecs = [].concat.apply([], allPossibleRecs);
+    areas.forEach(area => {
+      let recArray = this.state[area]
+        issuesArray.filter(i => i.area === area).forEach(issue => {
+                   
+          
+        // highlight added issues
+          
+          let isEmptyRecs = true
+          let recommendations = issue.recommendations
+          let oneRecommendation = ''
+          recommendations.forEach(r => {
+            if (r.length) {
+              isEmptyRecs = false
+            }
+          })
+          if (!isEmptyRecs) {
+            console.log('not empty')
+            while (oneRecommendation === '') {
+              oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
+            }
+          } else {
+            console.log('empty')
+
+            oneRecommendation = '' // in case no recommendations are set, return empty
+          }
+          
+         
+            if (!recArray.includes(recommendations[0]) && !recArray.includes(recommendations[1]) && !recArray.includes(recommendations[2])) {
+              
+              recArray.push(oneRecommendation)
+
+              this.countPoints(issue.points, "minus");
+            
+              this.setState({
+                [area]:recArray
+              })
+
+            }
+           
+            recArray.forEach(r => {
+              if (!allPossibleRecs.includes(r)) {
+                console.log('cool')
+                recArray.splice(recArray.indexOf(r), 1);
+                this.countPoints(this.state.issues.find(i => i.recommendations.includes(r)).points, "plus");
+                this.setState({
+                  [area]:recArray
+                })
+              }
+            });
+
+            
+           
+          
+            
+            
+        })
+      
+    })
+    
+  }
+  appendIssue(issue) {
+      let issueButtons = document.getElementsByClassName('issue')
+      // highlight added issues
+        for (var button of issueButtons) {
+          if (button.innerText === issue.keyword) {
+            if (!button.getAttribute('class').includes('added')) {
+              button.setAttribute('class','issue added')
+            } else {
+              button.setAttribute('class','issue')
+            }
+          }
+        }
+
+      let issuesArray = this.state[issue.area];
+
+
+      if (!issuesArray.includes(issue.recommendations[0]) && !issuesArray.includes(issue.recommendations[1]) && !issuesArray.includes(issue.recommendations[2]) ) {
+        let isEmptyRecs = true
+        let recommendations = issue.recommendations
+        let oneRecommendation = ''
+        recommendations.forEach(r => {
+          if (r.length) {
+            isEmptyRecs = false
+          }
+        })
+        if (!isEmptyRecs) {
+          while (oneRecommendation === '') {
+            oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
+          }
+        } else {
+          oneRecommendation = '' // in case no recommendations are set, return empty
+        }
+        this.countPoints(issue.points, "minus");
+        issuesArray.push(oneRecommendation)
+        this.setState({
+          [issue.area]:issuesArray
+        })
+        
+      } else {
+        issue.recommendations.forEach(r => {
+          if (issuesArray.includes(r)) {
+            issuesArray.splice(issuesArray.indexOf(r), 1);
+            this.countPoints(issue.points, "plus");
+            this.setState({
+              [issue.area]:issuesArray
+            })
+          }
+        });
+      }
+       
     this.updateApp()
   }
   sendMode(area,mode) {
@@ -140,8 +248,9 @@ class App extends Component {
     axios.post(`${env === 'd' ? 'http://localhost:5000':''}/preferences/update/`+modeIds[this.state.user],preference)
     .then(res => this.componentDidMount())
   }
-  updateApp(user){
-    this.setState({user})
+  updateApp(){
+    // this.setState({user})
+    let user = this.state.user
     axios
       .get(`${env === "d" ? "http://localhost:5000" : ""}/templates`)
       .then(res => {
@@ -251,16 +360,18 @@ class App extends Component {
     this.setState({ level });
   }
   render() {
-    // destructuring issues
-
+    let search = this.state.styles.search
+    let issues = this.state.issues
     return (
       <Router>
-        <div className="App">
+        <div className="App" >
+        
             <Route exact path='/'>
                <Unauthorized/>
             </Route>
           <Route path="/dima">
-            <Header user="dima" loadedIssues={this.state.loadedIssues}/>
+          <Header user="dima" loadedIssues={this.state.loadedIssues}/>
+          <Search issues={this.state.issues} style={search} appendFoundIssues={this.appendFoundIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -327,6 +438,7 @@ class App extends Component {
 
           <Route path="/alex">
             <Header user="alex"  loadedIssues={this.state.loadedIssues}/>
+            <Search issues={this.state.issues} style={search} appendFoundIssues={this.appendFoundIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -397,6 +509,8 @@ class App extends Component {
 
           <Route path="/oksana" >
             <Header user="oksana" loadedIssues={this.state.loadedIssues}/>
+            <Search issues={this.state.issues} style={search} appendFoundIssues={this.appendFoundIssues}/>
+
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -463,6 +577,7 @@ class App extends Component {
 
           <Route path="/masha" >
             <Header user="masha"  loadedIssues={this.state.loadedIssues}/>
+            <Search issues={this.state.issues} style={search} appendFoundIssues={this.appendFoundIssues}/>
             <main className="main-container">
               <div className="left hints">
                 <Hint
@@ -529,6 +644,7 @@ class App extends Component {
 
 
         </div>
+        
       </Router>
     );
   }

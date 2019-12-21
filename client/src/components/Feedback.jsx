@@ -6,9 +6,10 @@ import { model } from "mongoose";
 const Paragraph = (props) => {
     let area = props.area,
         issuesArray = props.issuesArray
-    return (
+    if (issuesArray.length) {
+      return (
         <div className='Feedback__section'>
-        <h4 className='Feedback__heading'>{issuesArray.length ? area : ''}</h4>
+        <h4 className='Feedback__heading'>{issuesArray ? area : ''}</h4>
         <p className='Feedback__paragraph' dangerouslySetInnerHTML={{__html: `${issuesArray
           ? issuesArray.map((r,index) => {
             if (issuesArray.length > 1 && index < issuesArray.length-1) {
@@ -23,14 +24,23 @@ const Paragraph = (props) => {
         
       </div>
     );
+    } else {
+      return(
+        <div></div>
+      )
+    }
+
 };
 const List = (props) => {
     let area = props.area,
         issuesArray = props.issuesArray
+    if (issuesArray.length) {
+
+    
     return (
         <div className='Feedback__section'>
-        <h4 className='Feedback__heading'>{issuesArray.length ? area : ''}</h4>
-        {issuesArray
+        <h4 className='Feedback__heading'>{issuesArray ? area : ''}</h4>
+        {issuesArray.length
           ? issuesArray.map((recommendation, index) => {
               return (
                 <li className="Feedback__li" key={index} dangerouslySetInnerHTML={{__html: `${issuesArray.length > 1 ? index+1+'. ': ''}${recommendation}`}}>
@@ -40,6 +50,9 @@ const List = (props) => {
           : ""}
       </div>
     );
+  } else {
+    return  <div></div>
+  }
 };
 
 class Feedback extends Component {

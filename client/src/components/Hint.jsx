@@ -3,7 +3,15 @@ import axios from 'axios'
 import AddForm from "./AddForm.jsx";
 import EditForm from "./EditForm.jsx";
 let env = "p"
-
+function compare( a, b ) {
+  if ( a.keyword.charAt(0) < b.keyword.charAt(0) ){
+    return -1;
+  }
+  if ( a.keyword.charAt(0) > b.keyword.charAt(0) ){
+    return 1;
+  }
+  return 0;
+}
 class Hint extends Component {
   constructor() {
     super();
@@ -56,7 +64,9 @@ class Hint extends Component {
     this._isMounted = true
     this.setState({user:this.props.user,mode: this.props.mode[this.props.area]})
     axios.get(`${env === 'd' ? 'http://localhost:5000':''}/templates`)
-      .then(res => {if (this._isMounted) this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user)})})
+      .then(res => {if (this._isMounted) {
+        this.setState({issues:res.data.filter(i => i.area === this.state.area && i.user === this.props.user).sort(compare)})}}
+        )
     this.setState({area:this.props.area})
     this.props.updateApp(this.props.user)
     if (this.props.area === "content") {
@@ -224,27 +234,17 @@ class Hint extends Component {
     this.showEditForm(issueObject)  
   } 
   applyIssue(e) {
-
-    if (!e.target.getAttribute('class').includes('added')) {
-      e.target.setAttribute('class','issue added')
-    } else {
-      e.target.setAttribute('class','issue')
-    }
-      
   
-        // get str of area, eg: "content"
-    let area = e.target.getAttribute("area"); 
-        // get array of 3 recommendations
-    let issueObject = this.state.issues.find(i => i.keyword === e.target.innerText);
-    let recommendations = issueObject.recommendations 
-        // get 1 random 
-    let oneRecommendation = ''
-    while (oneRecommendation === '') {
-      oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
-    }
-        // send up to App component
+    let issue = this.state.issues.find(i => i.keyword === e.target.innerText);
+    // let recommendations = issueObject.recommendations 
+    //     // get 1 random 
+    // let oneRecommendation = ''
+    // while (oneRecommendation === '') {
+    //   oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
+    // }
+    //     // send up to App component
     
-    this.props.appendIssue(area, oneRecommendation);
+    this.props.appendIssue(issue);
     this.componentDidMount()
 
   }
