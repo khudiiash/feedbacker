@@ -63,7 +63,8 @@ class App extends Component {
           width: '0',
           height: '0',
         }
-      }
+      },
+      foundAreas: []
     };
     this.appendIssue = this.appendIssue.bind(this);
     this.appendFoundIssues = this.appendFoundIssues.bind(this);
@@ -113,17 +114,18 @@ class App extends Component {
     let issueButtons = document.getElementsByClassName('issue')
     let keywords = issuesArray.map(i => i.keyword)
     let areas = issuesArray.map(i => i.area)
+    let foundAreas = this.state.foundAreas
     areas = [...new Set(areas)]
     for (var button of issueButtons) {
       if (!button.getAttribute('class').includes('added') && keywords.includes(button.innerText)) {
         button.setAttribute('class','issue added')
       } else if (!keywords.includes(button.innerText)){
         button.setAttribute('class','issue')
-      }
-          
+      }     
     }
     let allPossibleRecs = issuesArray.map(i => i.recommendations)
     allPossibleRecs = [].concat.apply([], allPossibleRecs);
+
     areas.forEach(area => {
       let recArray = this.state[area]
         issuesArray.filter(i => i.area === area).forEach(issue => {
@@ -140,49 +142,47 @@ class App extends Component {
             }
           })
           if (!isEmptyRecs) {
-            console.log('not empty')
             while (oneRecommendation === '') {
               oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
             }
           } else {
-            console.log('empty')
-
             oneRecommendation = '' // in case no recommendations are set, return empty
-          }
-          
-         
+          }         
             if (!recArray.includes(recommendations[0]) && !recArray.includes(recommendations[1]) && !recArray.includes(recommendations[2])) {
               
               recArray.push(oneRecommendation)
-
               this.countPoints(issue.points, "minus");
-            
               this.setState({
                 [area]:recArray
               })
-
             }
-           
             recArray.forEach(r => {
               if (!allPossibleRecs.includes(r)) {
-                console.log('cool')
                 recArray.splice(recArray.indexOf(r), 1);
                 this.countPoints(this.state.issues.find(i => i.recommendations.includes(r)).points, "plus");
                 this.setState({
                   [area]:recArray
                 })
               }
-            });
-
-            
-           
-          
-            
-            
+            });            
         })
-      
     })
-    
+
+    if (foundAreas.length > areas.length) {
+      let clearArea = foundAreas[foundAreas.length-1]
+      let recArray = this.state[clearArea]
+      let r = recArray[0]
+      this.countPoints(this.state.issues.find(i => i.recommendations.includes(r)).points, "plus");
+
+      
+      this.setState({
+        [clearArea]:[]
+      })
+
+    }
+   this.setState({
+     foundAreas: areas
+   })
   }
   appendIssue(issue) {
       let issueButtons = document.getElementsByClassName('issue')

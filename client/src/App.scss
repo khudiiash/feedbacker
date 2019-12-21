@@ -362,13 +362,16 @@
         outline: none;
         width: 100px;
         transition: height 600ms, width 800ms, border-color 600ms;
+        &:hover {
+            width: 200px;
+        }
         
         &:focus {
             background: transparent !important;
             border: none  !important;
             caret-color: white  !important;
             color: rgb(255, 255, 255)  !important;
-            border-bottom: 1px dashed rgba(255, 74, 74, 0.603)  !important;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.795)  !important;
             outline: none  !important;
             width: 45vw;
 
@@ -402,3 +405,58 @@
 
 
 
+// Loader
+.loader {
+    position: relative;
+    top: 4px;
+    width: 40px;
+    margin: auto;
+  
+    .circle {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      opacity: 0;
+      transform: rotate(225deg);
+      animation-iteration-count: infinite;
+      animation-name: orbit;
+      animation-duration: 5.5s;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+        background: rgb(52, 165, 37);
+      }
+      
+      &:nth-child(2) {  animation-delay: 240ms; }
+      &:nth-child(3) {  animation-delay: 480ms; }
+      &:nth-child(4) {  animation-delay: 720ms; }
+      &:nth-child(5) {  animation-delay: 960ms; }
+    }
+  }
+  
+  @keyframes orbit { 
+    0%   { transform:rotate(225deg); opacity: 1;
+           animation-timing-function: ease-out; } 
+      
+    7%   { transform:rotate(345deg);
+           animation-timing-function: linear; }
+      
+    30%   { transform:rotate(455deg);
+            animation-timing-function: ease-in-out; }
+      
+    39%   { transform:rotate(690deg);
+            animation-timing-function: linear; }
+      
+    70%   { transform:rotate(815deg); opacity: 1;
+           animation-timing-function: ease-out; }
+      
+    75%   { transform:rotate(945deg); 
+           animation-timing-function: ease-out; }
+      
+    76% { transform:rotate(945deg); opacity: 0; }
+    100% { transform:rotate(945deg); opacity: 0; } 
+  }

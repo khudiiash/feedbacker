@@ -15,9 +15,9 @@ class Search extends Component {
         this.setState({input:e.target.value})
         let foundIssues = issues.filter(i => input.includes(i.keyword))
 
-        if (foundIssues.length) {
-            this.props.appendFoundIssues(foundIssues)
-        }        
+       
+        this.props.appendFoundIssues(foundIssues)
+
           
     }
     componentDidMount(){

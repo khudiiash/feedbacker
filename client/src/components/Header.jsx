@@ -4,7 +4,20 @@ import dimaAva from "./assets/dima.jpg";
 import alexAva from "./assets/alex.jpg";
 import mashaAva from "./assets/masha.jpg";
 import oksanaAva from "./assets/oksana.jpg";
-
+class Loader extends Component {
+  render(){
+    return(
+      <div className="loader">
+         <div className="circle"></div>
+         <div className="circle"></div>
+         <div className="circle"></div>
+         <div className="circle"></div>
+         <div className="circle"></div>
+         <div className="circle"></div>
+      </div>
+    )
+  }
+}
 class Header extends Component {
   constructor() {
     super();
@@ -36,7 +49,7 @@ class Header extends Component {
     }
     return (
       <div className="Header">
-          <div className="loading"><h4 style={{height: '0', color: 'white'}}>{this.props.loadedIssues >= 5 ? '':`Loading`+'.'.repeat(this.props.loadedIssues)}</h4></div>
+  <div className="loading"><h4 style={{height: '0', color: 'white'}}>{this.props.loadedIssues >= 5 ? '':<Loader />}</h4></div>
         <div
           className="btn-group btn-group-toggle type evaluators"
           data-toggle="buttons"
