@@ -9,7 +9,7 @@ import { Header, Feedback, Hint, Search } from "./components";
 
 import "./App.scss";
 import axios from "axios";
-let env = "p";
+let env = "d";
 
 
 let modeIds = {
@@ -116,6 +116,7 @@ class App extends Component {
     let keywords = issuesArray.map(i => i.keyword)
     let areas = issuesArray.map(i => i.area)
     let foundAreas = this.state.foundAreas
+    let pointsToTake = 0, pointsToAdd = 0;
     areas = [...new Set(areas)]
     for (var button of issueButtons) {
       if (!button.getAttribute('class').includes('added') && keywords.includes(button.innerText)) {
@@ -152,7 +153,7 @@ class App extends Component {
             if (!recArray.includes(recommendations[0]) && !recArray.includes(recommendations[1]) && !recArray.includes(recommendations[2])) {
               
               recArray.push(oneRecommendation)
-              this.countPoints(issue.points, "minus");
+              pointsToTake += issue.points;
               this.setState({
                 [area]:recArray
               })
@@ -160,7 +161,7 @@ class App extends Component {
             recArray.forEach(r => {
               if (!allPossibleRecs.includes(r)) {
                 recArray.splice(recArray.indexOf(r), 1);
-                this.countPoints(this.state.issues.find(i => i.recommendations.includes(r)).points, "plus");
+                pointsToAdd += this.state.issues.find(i => i.recommendations.includes(r)).points
                 this.setState({
                   [area]:recArray
                 })
@@ -173,7 +174,7 @@ class App extends Component {
       let clearArea = foundAreas[foundAreas.length-1]
       let recArray = this.state[clearArea]
       let r = recArray[0]
-      this.countPoints(this.state.issues.find(i => i.recommendations.includes(r)).points, "plus");
+      pointsToAdd += this.state.issues.find(i => i.recommendations.includes(r)).points
 
       
       this.setState({
@@ -181,9 +182,16 @@ class App extends Component {
       })
 
     }
+   
    this.setState({
      foundAreas: areas
    })
+   if (pointsToAdd) {
+    this.countPoints(pointsToAdd,'plus')
+   } else {
+    this.countPoints(pointsToTake,'minus')
+   }
+   
   }
   appendIssue(issue) {
       let issueButtons = document.getElementsByClassName('issue')
@@ -262,10 +270,13 @@ class App extends Component {
       });
   }
   countPoints(points, action) {
+  
     let basePoints = this.state.basePoints,
       newPoints =
         action === "minus" ? basePoints - points : basePoints + points,
       level = "";
+    console.log('base '+basePoints)
+    console.log('new '+newPoints)
     switch (true) {
       case newPoints <= 0:
         level = "Zero";
@@ -328,6 +339,7 @@ class App extends Component {
       case newPoints >= 95 && newPoints <= 100:
         level = "PhD";
     }
+
     this.setState({ basePoints: newPoints });
     this.setLevel(level);
   }
@@ -336,6 +348,7 @@ class App extends Component {
     for (var el of activeIssues) {
       el.setAttribute('class','issue')
     }
+    console.log('clear triggered')
     this.setState({
       level: "",
       content: [],
