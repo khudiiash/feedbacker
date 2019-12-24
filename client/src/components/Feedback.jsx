@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { model } from "mongoose";
 
 
 
@@ -9,7 +8,7 @@ const Paragraph = (props) => {
     if (issuesArray.length) {
       return (
         <div className='Feedback__section'>
-        <h4 className='Feedback__heading' dangerouslySetInnerHTML={{__html: `<b>${issuesArray ? area : ''}</b>`}}></h4>
+       <div className='Feedback__heading'>{issuesArray ? area : ''}</div>
         <p className='Feedback__paragraph' dangerouslySetInnerHTML={{__html: `${issuesArray
           ? issuesArray.map((r,index) => {
             if (issuesArray.length > 1 && index < issuesArray.length-1) {
@@ -39,7 +38,7 @@ const List = (props) => {
     
     return (
         <div className='Feedback__section'>
-        <h4 className='Feedback__heading'  dangerouslySetInnerHTML={{__html: `<b>${issuesArray ? area : ''}</b>`}}></h4>
+        <div className='Feedback__heading' >{issuesArray ? area : ''}</div>
         {issuesArray.length
           ? issuesArray.map((recommendation, index) => {
               return (
@@ -76,7 +75,7 @@ class Feedback extends Component {
     return (
       <div className="Feedback">
         <div className="Feedback__heading">
-            <h1 className="Feedback__heading main"><b>Feedback</b></h1>
+            <div className="Feedback__heading main">Feedback</div>
             <div className='Feedback__heading__clearFeedback' title="Clear the feedback" onClick={this.props.clearFeedback}></div>
         </div>
         
@@ -90,7 +89,7 @@ class Feedback extends Component {
 
 
         </div>
-    <footer className="Feedback__level">{this.props.level ? "Level: "+this.props.level : ''}</footer>
+    <div className="Feedback__level">{this.props.level ? "Level: "+this.props.level : ''}</div>
       </div>
     );
   }
