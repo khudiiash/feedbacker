@@ -9,7 +9,7 @@ const Paragraph = (props) => {
     if (issuesArray.length) {
       return (
         <div className='Feedback__section'>
-        <h4 className='Feedback__heading'>{issuesArray ? area : ''}</h4>
+        <h4 className='Feedback__heading' dangerouslySetInnerHTML={{__html: `<b>${issuesArray ? area : ''}</b>`}}></h4>
         <p className='Feedback__paragraph' dangerouslySetInnerHTML={{__html: `${issuesArray
           ? issuesArray.map((r,index) => {
             if (issuesArray.length > 1 && index < issuesArray.length-1) {
@@ -39,7 +39,7 @@ const List = (props) => {
     
     return (
         <div className='Feedback__section'>
-        <h4 className='Feedback__heading'>{issuesArray ? area : ''}</h4>
+        <h4 className='Feedback__heading'  dangerouslySetInnerHTML={{__html: `<b>${issuesArray ? area : ''}</b>`}}></h4>
         {issuesArray.length
           ? issuesArray.map((recommendation, index) => {
               return (
@@ -71,7 +71,6 @@ class Feedback extends Component {
       grammar = this.props.grammar,
       format = this.props.format,
       style = this.props.style,
-      user = this.props.user,
       mode = this.props.mode
 
     return (
