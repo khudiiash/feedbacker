@@ -79,7 +79,6 @@
             display: flex;
             margin-bottom: 10px;
             &__title {
-                width: 100%;
                 margin-top: 5px;
                 margin-right: 85px;
                 
@@ -260,7 +259,7 @@
             left: 70vw;
             border: 0;
             padding: 5px;
-            margin: 5px;
+            margin: 18px 5px 5px 5px;
             border-radius: 50%;
             background: url('https://img.icons8.com/ios/50/000000/delete-sign.png');
             background-size: cover;
