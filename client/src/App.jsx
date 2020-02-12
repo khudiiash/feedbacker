@@ -44,7 +44,7 @@ class App extends Component {
       level: "",
       area: "",
       content: [],
-      structure: [],
+      punctuation: [],
       grammar: [],
       style: [],
       format: [],
@@ -53,7 +53,7 @@ class App extends Component {
       loadedIssues: 0,
       mode: {
         content: '',
-        structure: '',
+        punctuation: '',
         grammar: '',
         style: '',
         format: ''
@@ -337,7 +337,7 @@ class App extends Component {
     this.setState({
       level: "",
       content: [],
-      structure: [],
+      punctuation: [],
       grammar: [],
       style: [],
       format: [],
@@ -349,7 +349,7 @@ class App extends Component {
       user: user,
       level: "",
       content: [],
-      structure: [],
+      punctuation: [],
       grammar: [],
       style: [],
       format: []
@@ -367,12 +367,12 @@ class App extends Component {
         
           
           <Header user="dima" loadedIssues={this.state.loadedIssues}/>
-          <Search issues={issues} style={search} appendFoundIssues={this.appendFoundIssues}/>
+          {/* <Search issues={issues} style={search} appendFoundIssues={this.appendFoundIssues}/> */}
             <main className="main-container">
               <div className="left hints">
-                <Hint
+                 <Hint
                   user='dima'
-                  area="structure"
+                  area="grammar"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
@@ -381,7 +381,7 @@ class App extends Component {
                 />
                  <Hint
                   user='dima'
-                  area="grammar"
+                  area="punctuation"
                   countPoints={this.countPoints}
                   appendIssue={this.appendIssue}
                   updateApp={this.updateApp}
@@ -394,7 +394,7 @@ class App extends Component {
                 setUser={this.setUser}
                 level={this.state.level}
                 content={this.state.content}
-                structure={this.state.structure}
+                punctuation={this.state.punctuation}
                 grammar={this.state.grammar}
                 format={this.state.format}
                 style={this.state.style}

@@ -52,7 +52,7 @@ class Feedback extends Component {
   }
   render() {
 
-    let {content,structure,grammar,format,style,mode} = this.props
+    let {content,punctuation,grammar,format,style,mode} = this.props
 
     return (
       <div className="Feedback">
@@ -63,7 +63,7 @@ class Feedback extends Component {
         
         <table className="Feedback__body">
           <tbody>
-            {structure.length >0 && <Row key='structure' area='structure' issuesArray={structure}/>}
+            {punctuation.length >0 && <Row key='punctuation' area='punctuation' issuesArray={punctuation}/>}
             {grammar.length > 0 && <Row key='grammar' area='grammar' issuesArray={grammar}/>}
             {style.length > 0 && <Row key='style' area='style' issuesArray={style}/>}
             {format.length > 0 && <Row key='format' area='format' issuesArray={format}/>}
