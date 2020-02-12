@@ -331,8 +331,8 @@ class App extends Component {
     for (var el of activeIssues) {
       el.setAttribute('class','issue')
     }
-    let searchInput = document.getElementById('searchIssues')
-    searchInput.value=''
+    // let searchInput = document.getElementById('searchIssues')
+    // searchInput.value=''
 
     this.setState({
       level: "",
