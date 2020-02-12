@@ -11,42 +11,29 @@ class AddForm extends Component {
         onSubmit={this.props.addIssue}
       >
         <input
-          className="addIssue__keyword"
-          onChange={this.props.keywordInput}
-          value={this.props.keyword}
-          placeholder="keyword"
+          className="addIssue__issue"
+          onChange={this.props.issueInput}
+          value={this.props.issue}
+          placeholder="Issue"
         ></input>
-        <div className="Hint__addIssue__recommendations">
+        <div>
           <textarea
             type="text"
-            index={0}
-            value={this.props.recommendations[0]}
-            onChange={this.props.recommendationsInput}
-            placeholder="Recommendation"
-          ></textarea>
-          <textarea
-            type="text"
-            index={1}
-            value={this.props.recommendations[1]}
-            onChange={this.props.recommendationsInput}
-            placeholder="Recommendation"
-          ></textarea>
-          <textarea
-            type="text"
-            index={2}
-            value={this.props.recommendations[2]}
-            onChange={this.props.recommendationsInput}
-            placeholder="Recommendation"
+            className="Hint__addIssue-comment"
+            value={this.props.comment}
+            onChange={this.props.commentInput}
+            placeholder="Comment"
           ></textarea>
         </div>
+          <textarea
+            type="text"
+            className="Hint__addIssue-link"
+            value={this.props.link}
+            onChange={this.props.linkInput}
+            placeholder="Link"
+          ></textarea>
 
-        <input
-          type="number"
-          className="points"
-          value={this.props.points}
-          onChange={this.props.pointsInput}
-          placeholder="Points"
-        ></input>
+
         <input
           className="Hint__addIssue__submit"
           type="submit"

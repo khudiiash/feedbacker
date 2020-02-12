@@ -8,19 +8,14 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-  const user = req.body.user;
-  const keyword = req.body.keyword;
-  const area = req.body.area;
-  const recommendations = req.body.recommendations;
-  const points = Number(req.body.points);
-  
+
+  const {issue,area,comment,link} = req.body
 
   const newTemplate = new Template({
-    user,
-    keyword,
+    issue,
     area,
-    recommendations,
-    points,
+    comment,
+    link,
   });
   newTemplate.save()
   .then(() => res.json('Template added'))
@@ -42,11 +37,10 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
   Template.findById(req.params.id)
     .then(Template => {
-      Template.user = req.body.user;
-      Template.keyword = req.body.keyword;
+      Template.issue = req.body.issue;
       Template.area = req.body.area;
-      Template.recommendations = req.body.recommendations;
-      Template.points = Number(req.body.points);
+      Template.comment = req.body.comment;
+      Template.link = req.body.link;
 
       Template.save()
         .then(() => res.json('Template updated!'))

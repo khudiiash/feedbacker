@@ -4,18 +4,18 @@ class EditForm extends Component {
     constructor(){
         super()
         this.state = {
-            keyword: '',
+            issue: '',
             area: '',
-            recommendations: [],
-            points: 0
+            comment: [],
+            link: 0
         }
     }
     componentDidMount(){
         this.setState({
-            keyword: this.props.editObject.keyword,
+            issue: this.props.editObject.issue,
             area: this.props.editObject.area,
-            recommendations: this.props.editObject.recommendations,
-            points: this.props.editObject.points,
+            comment: this.props.editObject.comment,
+            link: this.props.editObject.link,
         })
     }
   render() {
@@ -28,43 +28,25 @@ class EditForm extends Component {
         onSubmit={this.props.editIssue}
       >
         <input
-          className="addIssue__keyword"
-          value={this.props.editObject.keyword}
-          onChange={this.props.keywordInput}
-          placeholder="keyword"
+          className="addIssue__issue"
+          value={this.props.editObject.issue}
+          onChange={this.props.issueInput}
+          placeholder="issue"
         ></input>
-        <div className="Hint__addIssue__recommendations">
-          <textarea
-            type="text"
-            index={0}
-            value={this.props.editObject.recommendations ?  this.props.editObject.recommendations[0] : ''}
-            onChange={this.props.recommendationsInput}
-            placeholder="Recommendation"
-          ></textarea>
-          <textarea
-            type="text"
-            index={1}
-            value={this.props.editObject.recommendations ? this.props.editObject.recommendations[1] : ''}
 
-            onChange={this.props.recommendationsInput}
-            placeholder="Recommendation"
-          ></textarea>
-          <textarea
-            type="text"
-            index={2}
-            value={this.props.editObject.recommendations ?  this.props.editObject.recommendations[2] : ''}
-
-            onChange={this.props.recommendationsInput}
-            placeholder="Recommendation"
-          ></textarea>
-        </div>
+        <textarea
+          type="text"
+          value={this.props.editObject.comment}
+          onChange={this.props.commentInput}
+          placeholder="Comment"
+        ></textarea>
 
         <input
-          type="number"
-          className="points"
-          value={this.props.editObject.points}
-          onChange={this.props.pointsInput}
-          placeholder="Points"
+          type="text"
+          className="link"
+          value={this.props.editObject.link}
+          onChange={this.props.linkInput}
+          placeholder="Link"
         ></input>
         <input
           className="Hint__addIssue__submit"

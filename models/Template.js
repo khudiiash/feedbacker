@@ -3,12 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TemplateSchema = new Schema({
-  user: { type: String, required: true },
-  keyword: { type: String, required: true },
+  issue: { type: String, required: true },
   area: { type: String, required: true },
-  recommendations: { type: Array, required: true },
-  points: { type: Number, required: true },
-
+  comment: { type: String, required: true },
+  link: { type: String, required: true },
 }, {
   timestamps: true,
 });

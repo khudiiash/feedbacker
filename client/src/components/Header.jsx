@@ -54,7 +54,7 @@ class Header extends Component {
           className="btn-group btn-group-toggle type evaluators"
           data-toggle="buttons"
         >
-          <User name={name} ava={ava} checked={true} />
+          <b className='Header__label'>Feedback</b>
         </div>
       </div>
     );

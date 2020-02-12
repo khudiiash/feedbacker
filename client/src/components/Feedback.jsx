@@ -2,57 +2,43 @@ import React, { Component } from "react";
 
 
 
-const Paragraph = (props) => {
+const Row = (props) => {
     let area = props.area,
         issuesArray = props.issuesArray
     if (issuesArray.length) {
       return (
-        <div className='Feedback__section'>
-       <div className='Feedback__heading'>{issuesArray ? area : ''}</div>
-        <p className='Feedback__paragraph' dangerouslySetInnerHTML={{__html: `${issuesArray
-          ? issuesArray.map((r,index) => {
-            if (issuesArray.length > 1 && index < issuesArray.length-1) {
-              return r.replace(/\.$|\. $/,'')
-            } 
-            else {
-              return r
-            }
-          }).join('. ')
-          : ""}`}}>
-        </p>
+        <React.Fragment>
+        <tr className='Feedback__section'>
+          <td colSpan='4'>{issuesArray && area}</td>
+        </tr>
+        <tr className='Feedback__section-heading'>
+          <td>Issue</td>
+          <td>Comment</td>
+          <td>Example</td>
+          <td>Link</td>
+        </tr>
         
-      </div>
+        {issuesArray && issuesArray.map((r,index) => {
+           
+           return <tr  key={`${Math.floor(Math.random()*1000)}`} className='Feedback__section-mistake'>
+                    <td width='15%' className='Feedback__section-mistake-issue' key={`${Math.floor(Math.random()*1000)}`}>{r.issue}</td>
+                    <td width='45%' className='Feedback__section-mistake-comment' key={`${Math.floor(Math.random()*1000)}`}>{r.comment}</td>
+                    <td width='30%' className='Feedback__section-mistake-example' key={`${Math.floor(Math.random()*1000)}`}>Example</td>
+                    <td width='10%' className='Feedback__section-mistake-link' key={`${Math.floor(Math.random()*1000)}`}><a href={r.link}>Learn More</a></td>
+                  </tr>
+             
+          })}
+        </React.Fragment>
+        
     );
     } else {
       return(
-        <div></div>
+        <tr></tr>
       )
     }
 
 };
-const List = (props) => {
-    let area = props.area,
-        issuesArray = props.issuesArray
-    if (issuesArray.length) {
 
-    
-    return (
-        <div className='Feedback__section'>
-        <div className='Feedback__heading' >{issuesArray ? area : ''}</div>
-        {issuesArray.length
-          ? issuesArray.map((recommendation, index) => {
-              return (
-                <li className="Feedback__li" key={index} dangerouslySetInnerHTML={{__html: `${issuesArray.length > 1 ? index+1+'. ': ''}${recommendation}`}}>
-                </li>
-              );
-            })
-          : ""}
-      </div>
-    );
-  } else {
-    return  <div></div>
-  }
-};
 
 class Feedback extends Component {
   constructor(){
@@ -65,12 +51,8 @@ class Feedback extends Component {
     this.props.setUser(this.props.user)
   }
   render() {
-    let content = this.props.content,
-      structure = this.props.structure,
-      grammar = this.props.grammar,
-      format = this.props.format,
-      style = this.props.style,
-      mode = this.props.mode
+
+    let {content,structure,grammar,format,style,mode} = this.props
 
     return (
       <div className="Feedback">
@@ -79,16 +61,17 @@ class Feedback extends Component {
             <div className='Feedback__heading__clearFeedback' title="Clear the feedback" onClick={this.props.clearFeedback}></div>
         </div>
         
-        <div className="Feedback__body">
+        <table className="Feedback__body">
+          <tbody>
+            {structure.length >0 && <Row key='structure' area='structure' issuesArray={structure}/>}
+            {grammar.length > 0 && <Row key='grammar' area='grammar' issuesArray={grammar}/>}
+            {style.length > 0 && <Row key='style' area='style' issuesArray={style}/>}
+            {format.length > 0 && <Row key='format' area='format' issuesArray={format}/>}
+          </tbody>
+          
 
-            {mode['content'] === 'paragraph' ? <Paragraph area='content' issuesArray={content}/> : <List area='content' issuesArray={content}/>}
-            {mode['structure'] === 'paragraph' ? <Paragraph area='structure' issuesArray={structure}/> : <List area='structure' issuesArray={structure}/>}
-            {mode['grammar'] === 'paragraph' ? <Paragraph area='grammar' issuesArray={grammar}/> : <List area='grammar' issuesArray={grammar}/>}
-            {mode['style'] === 'paragraph' ? <Paragraph area='style' issuesArray={style}/> : <List area='style' issuesArray={style}/>}
-            {mode['format'] === 'paragraph' ? <Paragraph area='format' issuesArray={format}/> : <List area='format' issuesArray={format}/>}
 
-
-        </div>
+        </table>
     <div className="Feedback__level">{this.props.level ? "Level: "+this.props.level : ''}</div>
       </div>
     );
