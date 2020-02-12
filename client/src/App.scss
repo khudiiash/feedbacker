@@ -172,7 +172,6 @@
         .issues-container {
             transition: height 900ms;
             height: 23vh;
-
             overflow-x: scroll;
             &::-webkit-scrollbar { width: 0 !important }
             padding-top: 10px;
@@ -182,6 +181,7 @@
                 background: rgb(88, 88, 88);
                 border: none;
                 border-radius: 5px;
+                font-size: 14px;
                 color: rgb(250, 250, 250);
                 transition: 100ms;
                 -webkit-user-select: none; /* Safari */        
@@ -192,7 +192,7 @@
                     border: 2px solid orange;
                 }
                 &:hover {
-                    transform: translateY(-4px);
+                    transform: translateY(-2px);
                 }
                 &:focus {
                     outline: none;

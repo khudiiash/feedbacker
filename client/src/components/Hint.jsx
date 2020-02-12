@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios'
 import AddForm from "./AddForm.jsx";
 import EditForm from "./EditForm.jsx";
-let env = "p"
+let env = "d"
 function compare( a, b ) {
   if ( a.issue.charAt(0) < b.issue.charAt(0) ){
     return -1;

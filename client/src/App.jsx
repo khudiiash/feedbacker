@@ -9,7 +9,7 @@ import { Header, Feedback, Hint, Search } from "./components";
 
 import "./App.scss";
 import axios from "axios";
-let env = "p";
+let env = "d";
 
 
 let modeIds = {
