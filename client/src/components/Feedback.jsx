@@ -21,10 +21,10 @@ const Row = (props) => {
         {issuesArray && issuesArray.map((r,index) => {
            
            return <tr  key={`${Math.floor(Math.random()*1000)}`} className='Feedback__section-mistake'>
-                    <td width='15%' className='Feedback__section-mistake-issue' key={`${Math.floor(Math.random()*1000)}`}>{r.issue}</td>
-                    <td width='45%' className='Feedback__section-mistake-comment' key={`${Math.floor(Math.random()*1000)}`}>{r.comment}</td>
-                    <td width='30%' className='Feedback__section-mistake-example' key={`${Math.floor(Math.random()*1000)}`}>Example</td>
-                    <td width='10%' className='Feedback__section-mistake-link' key={`${Math.floor(Math.random()*1000)}`}><a href={r.link}>Learn More</a></td>
+                    <td width='20%' className='Feedback__section-mistake-issue' key={`${Math.floor(Math.random()*1000)}`}>{r.issue}</td>
+                    <td width='40%' className='Feedback__section-mistake-comment' key={`${Math.floor(Math.random()*1000)}`}>{r.comment}</td>
+                    <td width='25%' className='Feedback__section-mistake-example' key={`${Math.floor(Math.random()*1000)}`}></td>
+                    <td width='15%' className='Feedback__section-mistake-link' key={`${Math.floor(Math.random()*1000)}`}><a href={r.link}>Learn More</a></td>
                   </tr>
              
           })}
