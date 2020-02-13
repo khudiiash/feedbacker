@@ -63,8 +63,8 @@ class Feedback extends Component {
         
         <table className="Feedback__body">
           <tbody>
-            {punctuation.length >0 && <Row key='punctuation' area='punctuation' issuesArray={punctuation}/>}
             {grammar.length > 0 && <Row key='grammar' area='grammar' issuesArray={grammar}/>}
+            {punctuation.length >0 && <Row key='punctuation' area='punctuation' issuesArray={punctuation}/>}
             {style.length > 0 && <Row key='style' area='style' issuesArray={style}/>}
             {format.length > 0 && <Row key='format' area='format' issuesArray={format}/>}
           </tbody>
