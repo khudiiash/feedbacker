@@ -18,13 +18,13 @@ const Row = (props) => {
           <td>Link</td>
         </tr>
         
-        {issuesArray && issuesArray.map((r,index) => {
+        {issuesArray && issuesArray.map((r) => {
            
-           return <tr  key={`${Math.floor(Math.random()*1000)}`} className='Feedback__section-mistake'>
-                    <td width='20%' className='Feedback__section-mistake-issue' key={`${Math.floor(Math.random()*1000)}`}>{r.issue}</td>
-                    <td width='40%' className='Feedback__section-mistake-comment' key={`${Math.floor(Math.random()*1000)}`}>{r.comment}</td>
-                    <td width='25%' className='Feedback__section-mistake-example' key={`${Math.floor(Math.random()*1000)}`}></td>
-                    <td width='15%' className='Feedback__section-mistake-link' key={`${Math.floor(Math.random()*1000)}`}><a href={r.link}>Learn More</a></td>
+           return <tr  key={r._id} className='Feedback__section-mistake'>
+                    <td width='20%' className='Feedback__section-mistake-issue' key={r.issue}>{r.issue}</td>
+                    <td width='40%' className='Feedback__section-mistake-comment' key={r.comment}>{r.comment}</td>
+                    <td width='25%' className='Feedback__section-mistake-example' key={r.issue+r.comment}></td>
+                    <td width='15%' className='Feedback__section-mistake-link' key={r.link}><a href={r.link}>Learn More</a></td>
                   </tr>
              
           })}

@@ -191,7 +191,10 @@ class App extends Component {
         let index = issuesArray.findIndex((i,index) => i.issue === issue.issue)
         issuesArray.splice(index,1) // Remove Issue Object from the Area (on repeated click)
       }
-     
+      let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+
+      console.log(findDuplicates(issuesArray)) // All duplicates
+
         this.setState({
           [issue.area]:issuesArray
         })
