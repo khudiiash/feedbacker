@@ -139,24 +139,8 @@ class App extends Component {
           
         // highlight added issues
           
-          let isEmptyRecs = true
           let comment = issue.comment
-          // recommendations.forEach(r => {
-          //   if (r.length) {
-          //     isEmptyRecs = false
-          //   }
-          // })
-          // if (!isEmptyRecs) {
-          //   while (oneRecommendation === '') {
-          //     oneRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
-          //   }
-          // } else {
-          //   oneRecommendation = '' // in case no recommendations are set, return empty
-          // }         
-          //   if (!recArray.includes(recommendations[0]) && !recArray.includes(recommendations[1]) && !recArray.includes(recommendations[2])) {
-              
-          //     recArray.push(oneRecommendation)
-          //     pointsToTake += issue.points;
+         
               this.setState({
                 [area]:comment
               })
@@ -204,27 +188,15 @@ class App extends Component {
       if (!issuesArray.some(i => i._id === issue._id)) { // Append Issue Object to the Area
         issuesArray.push(issue)
       } else {
-        issuesArray.splice(issuesArray.indexOf(issue),1) // Remove Issue Object from the Area (on repeated click)
+        let index = issuesArray.findIndex((i,index) => i.issue === issue.issue)
+        issuesArray.splice(index,1) // Remove Issue Object from the Area (on repeated click)
       }
-
-
-
-      
+     
         this.setState({
           [issue.area]:issuesArray
         })
         
-      // } else {
-        // issue.recommendations.forEach(r => {
-        //   if (issuesArray.includes(r)) {
-        //     issuesArray.splice(issuesArray.indexOf(r), 1);
-        //     this.countPoints(issue.points, "plus");
-        //     this.setState({
-        //       [issue.area]:issuesArray
-        //     })
-        //   }
-        // });
-      // }
+     
        
     this.updateApp()
   }
