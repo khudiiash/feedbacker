@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 
 
-<<<<<<< HEAD
 class Row extends Component {
     constructor() {
       super()
@@ -18,11 +17,6 @@ class Row extends Component {
     render() {
     let area = this.props.area,
         issuesArray = this.props.issuesArray
-=======
-const Row = (props) => {
-    let area = props.area,
-        issuesArray = props.issuesArray
->>>>>>> 4d27676a98188cd79a3e39f64428cdc2c4da77ca
     if (issuesArray.length) {
       return (
         <React.Fragment>
@@ -37,7 +31,6 @@ const Row = (props) => {
         </tr>
         
         {issuesArray && issuesArray.map((r) => {
-<<<<<<< HEAD
            let example = this.state.examples[r._id]
            return <tr  key={r._id} className='Feedback__section-mistake'>
                     <td width='20%' className='Feedback__section-mistake-issue' key={r.issue}>{r.issue}</td>
@@ -52,13 +45,6 @@ const Row = (props) => {
                         <p>{this.state.examples[r._id]}</p>
                        </div>
                     </td>
-=======
-           
-           return <tr  key={r._id} className='Feedback__section-mistake'>
-                    <td width='20%' className='Feedback__section-mistake-issue' key={r.issue}>{r.issue}</td>
-                    <td width='40%' className='Feedback__section-mistake-comment' key={r.comment}>{r.comment}</td>
-                    <td width='25%' className='Feedback__section-mistake-example' key={r.issue+r.comment}></td>
->>>>>>> 4d27676a98188cd79a3e39f64428cdc2c4da77ca
                     <td width='15%' className='Feedback__section-mistake-link' key={r.link}><a href={r.link}>Learn More</a></td>
                   </tr>
              
@@ -70,26 +56,19 @@ const Row = (props) => {
       return(
         <tr></tr>
       )
-<<<<<<< HEAD
       }
-=======
->>>>>>> 4d27676a98188cd79a3e39f64428cdc2c4da77ca
     }
 
 };
 
-<<<<<<< HEAD
 function autosize(el){
   setTimeout(function(){
     el.style.cssText = 'height:auto; padding:0';
     // for box-sizing other than "content-box" use:
     // el.style.cssText = '-moz-box-sizing:content-box';
     el.style.cssText = 'height:' + el.scrollHeight + 'px';
-  },10);
+  },0);
 }
-=======
-
->>>>>>> 4d27676a98188cd79a3e39f64428cdc2c4da77ca
 class Feedback extends Component {
   constructor(){
     super()
@@ -103,14 +82,9 @@ class Feedback extends Component {
   render() {
 
     let {content,punctuation,grammar,format,style,mode} = this.props
-
-<<<<<<< HEAD
-
    
                  
     
-=======
->>>>>>> 4d27676a98188cd79a3e39f64428cdc2c4da77ca
     return (
       <div className="Feedback">
         <div className="Feedback__heading">
@@ -125,7 +99,6 @@ class Feedback extends Component {
             {style.length > 0 && <Row key='style' area='style' issuesArray={style}/>}
             {format.length > 0 && <Row key='format' area='format' issuesArray={format}/>}
           </tbody>
-          
 
 
         </table>
